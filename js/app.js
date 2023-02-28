@@ -3077,18 +3077,15 @@
                     },
                     992: {
                         slidesPerView: 2,
-                        spaceBetween: 20,
-                        autoHeight: true
+                        spaceBetween: 20
                     },
                     1150: {
                         slidesPerView: 2,
-                        spaceBetween: 30,
-                        autoHeight: true
+                        spaceBetween: 30
                     },
                     1200: {
                         slidesPerView: 2.5,
-                        spaceBetween: 30,
-                        autoHeight: true
+                        spaceBetween: 30
                     }
                 },
                 on: {}

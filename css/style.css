@@ -998,6 +998,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  cursor: pointer;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: end;
@@ -1008,6 +1009,9 @@ body {
   font-size: 18px;
   line-height: 160%;
   color: #d6b896;
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
 }
 
 .services__more span {
@@ -1183,6 +1187,7 @@ body {
 .warrior__slide {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 .warrior__slide img {
@@ -1207,7 +1212,6 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  display: none;
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.7);
@@ -1262,19 +1266,11 @@ body {
   text-align: center;
 }
 
-.typebrick__slide {
-  width: 100%;
-  height: auto;
+.typebrick__slide-hover {
+  position: relative;
 }
 
-.typebrick__slide img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
-}
-
-.typebrick__slide p {
+.typebrick__slide-hover p {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1299,6 +1295,19 @@ body {
   -webkit-transition: opacity 0.3s;
   -o-transition: opacity 0.3s;
   transition: opacity 0.3s;
+}
+
+.typebrick__slide {
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+
+.typebrick__slide img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .typebrick__text {
@@ -1456,6 +1465,7 @@ body {
 .thred__slide {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 .thred__slide img {
@@ -2818,6 +2828,12 @@ button.swiper-pagination-bullet {
     background: transparent;
   }
 
+  .services__more:hover {
+    -webkit-transform: translateX(5px);
+        -ms-transform: translateX(5px);
+            transform: translateX(5px);
+  }
+
   .warrior__slide:hover p {
     opacity: 1;
     -webkit-transition: opacity 0.3s;
@@ -2825,7 +2841,7 @@ button.swiper-pagination-bullet {
     transition: opacity 0.3s;
   }
 
-  .typebrick__slide:hover p {
+  .typebrick__slide-hover:hover p {
     opacity: 1;
     -webkit-transition: opacity 0.3s;
     -o-transition: opacity 0.3s;
