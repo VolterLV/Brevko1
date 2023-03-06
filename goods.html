@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Каталог</title>
+	<title>Товар</title>
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
@@ -62,140 +62,51 @@
 			</div>
 		</header>
 
-		<section class="katalog">
-			<div class="katalog__container">
-				<h1 class="katalog__title newpaige-title">Каталог</h1>
-				<hr>
-				<div class="katalog__body">
-					<div class="katalog__column">
 
-						<div class="katalog__kategory">
-							<div class="katalog__title-sort">Категорія</div>
-							<ul class="ratio-input-list">
-								<li>
-									<label for="option1">
-										<input type="radio" name="options" id="option1">
-										<div class="radio-button"></div>
-										<span>Одинарні</span>
-									</label>
-								</li>
-								<li>
-									<label for="option2">
-										<input type="radio" name="options" id="option2">
-										<div class="radio-button"></div>
-										<span>Подвійні</span>
-									</label>
-								</li>
-								<li>
-									<label for="option3">
-										<input type="radio" name="options" id="option3">
-										<div class="radio-button"></div>
-										<span>Дитячі</span>
-									</label>
-								</li>
-								<li>
-									<label for="option4">
-										<input type="radio" name="options" id="option4">
-										<div class="radio-button"></div>
-										<span>Елітні</span>
-									</label>
-								</li>
-								<li>
-									<label for="option5">
-										<input type="radio" name="options" id="option5">
-										<div class="radio-button"></div>
-										<span>Для воїнів</span>
-									</label>
-								</li>
-								<li>
-									<label for="option6">
-										<input type="radio" name="options" id="option6">
-										<div class="radio-button"></div>
-										<span>Аксесуари до памятників</span>
-									</label>
-								</li>
-							</ul>
+		<section class="goods">
+			<hr>
+			<div class="goods__container">
+				<nav class="goods__breadcrumb">
+					<ul>
+						<li><a href="home.html">Головна</a></li>
+						<li><a href="katalog.html">Каталог</a></li>
+						<li><a href="#">Памʼятники</a></li>
+						<li><a href="#">Одинарні</a></li>
+						<li><a href="#">M-91</a></li>
+					</ul>
+				</nav>
+				<div class="goods__body">
+					<div class="goods__img"><img src="img/goods/goods.svg" alt=""></div>
+					<div class="goods__info">
+						<div class="goods__top">
+							<div class="goods__title">m/91</div>
+							<button class="goods__button ">Замовити розрахунок вартості</button>
 						</div>
-
-						<div class="katalog__kategory">
-							<div class="katalog__title-sort">Тип</div>
-							<div class="katalog__checkbox">
-								<input type="checkbox" id="available" name="available">
-								<span class="katalog__checkbox-custom"></span>
-								<label for="available" class="katalog__checkbox-text">В наявності</label>
-							</div>
-
-							<div class="katalog__checkbox">
-								<input type="checkbox" id="3d" name="3d">
-								<span class="katalog__checkbox-custom"></span>
-								<label for="3d" class="katalog__checkbox-text">3д проект</label>
-							</div>
+						<div class="goods__text">Опис моделі. Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+							sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+						<div class="goods__text">Отримати додаткову інформацію та замовити пам’ятник ви також можете
+							зателефонувавши до нашої майстерні:</div>
+						<div class="goods__number">
+							<a href="tel:+380991160508">+38 099 116 05 08</a>
 						</div>
-						<div class="katalog__kategory">
-							<div class="katalog__title-sort">Ціна</div>
-							<div class="range-slider">
-								<input type="range" min="0" max="100000" value="0" class="slider slider1">
-								<input type="range" min="0" max="100000" value="100000" class="slider slider2">
-								<div class="slider-value value1">0 UAH</div>
-								<div class="slider-value value2">100,000 UAH</div>
-							</div>
+						<div class="goods__plus">
+							<span>+</span> Оплата
+							<hr>
 						</div>
-						<div class="katalog__kategory">
-							<div class="katalog__title-sort">Матеріал</div>
-							<div class="katalog__checkbox">
-								<input type="checkbox" id="granite" name="material">
-								<span class="katalog__checkbox-custom"></span>
-								<label for="granite" class="katalog__checkbox-text">Граніт</label>
-							</div>
-
-							<div class="katalog__checkbox">
-								<input type="checkbox" id="marble1" name="material">
-								<span class="katalog__checkbox-custom"></span>
-								<label for="marble1" class="katalog__checkbox-text">Мармур</label>
-							</div>
-
-							<div class="katalog__checkbox">
-								<input type="checkbox" id="granite2" name="material">
-								<span class="katalog__checkbox-custom"></span>
-								<label for="granite2" class="katalog__checkbox-text">Граніт</label>
-							</div>
-
-							<div class="katalog__checkbox">
-								<input type="checkbox" id="marble2" name="material">
-								<span class="katalog__checkbox-custom"></span>
-								<label for="marble2" class="katalog__checkbox-text">Мрамор</label>
-							</div>
-
-							<div class="katalog__checkbox">
-								<input type="checkbox" id="granite3" name="material">
-								<span class="katalog__checkbox-custom"></span>
-								<label for="granite3" class="katalog__checkbox-text">Граніт</label>
-							</div>
-
-							<div class="katalog__checkbox">
-								<input type="checkbox" id="marble3" name="material">
-								<span class="katalog__checkbox-custom"></span>
-								<label for="marble3" class="katalog__checkbox-text">Мрамор</label>
-							</div>
-							<button class="katalog__filterdrop">Скинути фільтр</button>
-
+						<div class="goods__plus">
+							<span>+</span> Доставка
+							<hr>
 						</div>
-
-
+						<div class="goods__plus">
+							<span>+</span> Встановлення
+							<hr>
+						</div>
 					</div>
-					<div class="katalog__column-img">
-						<div class="katalog__img"><img src="img/katalog/katalog1.svg" alt=""></div>
-						<div class="katalog__img"><img src="img/katalog/katalog2.svg" alt=""></div>
-						<div class="katalog__img"><img src="img/katalog/katalog3.svg" alt=""></div>
-						<div class="katalog__img"><img src="img/katalog/katalog1.svg" alt=""></div>
-						<div class="katalog__img"><img src="img/katalog/katalog2.svg" alt=""></div>
-						<div class="katalog__img"><img src="img/katalog/katalog3.svg" alt=""></div>
-						<button class="katalog__showmore">Показати ще <img src="img/icons/showmore.svg" alt=""></button>
-					</div>
+
 				</div>
-
+			</div>
 		</section>
-
 
 		<footer class="footer">
 
