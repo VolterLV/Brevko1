@@ -254,9 +254,17 @@ body::after {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  /* .consultation__close */
   /* .consultation__content */
   /* .popup__title */
   /* .consultation__phone-input */
+}
+
+.consultation__close {
+  margin: 40px 40px 36px 0px;
+  -ms-flex-item-align: end;
+      -ms-grid-row-align: end;
+      align-self: end;
 }
 
 .consultation__content {
@@ -3275,6 +3283,10 @@ button.swiper-pagination-bullet {
 }
 
 @media (max-width: 47.99875em) {
+  .consultation__close {
+    margin: 20px 20px 16px 0px;
+  }
+
   .typebrick__img-left {
     margin: 0rem 0rem 0rem 0rem;
   }
