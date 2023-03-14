@@ -3044,6 +3044,7 @@ input[type=range]::-moz-range-thumb {
   }
 
   .place-footer__info {
+    margin-left: 0px;
     text-align: center;
   }
 
@@ -3336,12 +3337,6 @@ input[type=range]::-moz-range-thumb {
 
   .galery hr {
     margin: 65px 0px 90px 0px;
-  }
-}
-
-@media (max-width: 61.99875em) and (max-width: 20em) {
-  .place-footer__info {
-    margin-left: 0.0000000625rem;
   }
 }
 
@@ -3919,26 +3914,6 @@ input[type=range]::-moz-range-thumb {
        -moz-column-gap: 1.5625rem;
             column-gap: 1.5625rem;
   }
-}
-
-@media (max-width: 61.99875em) and (min-width: 75em) {
-  .place-footer__info {
-    margin-left: 0.0000000625rem;
-  }
-}
-
-@media (max-width: 61.99875em) and (min-width: 20em) and (max-width: 75em) {
-@supports (margin-left: clamp( 0.0000000625rem , 0.0000000625rem  +  0vw , 0.0000000625rem )) {
-    .place-footer__info {
-      margin-left: clamp( 0.0000000625rem , 0.0000000625rem  +  0vw , 0.0000000625rem );
-    }
-}
-
-@supports not (margin-left: clamp( 0.0000000625rem , 0.0000000625rem  +  0vw , 0.0000000625rem )) {
-    .place-footer__info {
-      margin-left: calc(0.0000000625rem + 0 * (100vw - 20rem) / 55);
-    }
-}
 }
 
 @media (max-width: 600px) and (min-width: 75em) {
