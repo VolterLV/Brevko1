@@ -898,6 +898,7 @@ body::after {
 }
 
 .place-footer__info {
+  margin-left: 130px;
   max-width: 380px;
 }
 
@@ -2845,10 +2846,6 @@ input[type=range]::-moz-range-thumb {
     font-size: 3.125rem;
   }
 
-  .place-footer__info {
-    margin-left: 8.125rem;
-  }
-
   .main__title {
     line-height: 4.4375rem;
   }
@@ -2943,10 +2940,6 @@ input[type=range]::-moz-range-thumb {
 
   .newpaige-title {
     font-size: 1.875rem;
-  }
-
-  .place-footer__info {
-    margin-left: 2.5rem;
   }
 
   .main__title {
@@ -3051,7 +3044,6 @@ input[type=range]::-moz-range-thumb {
   }
 
   .place-footer__info {
-    margin-left: 0px;
     text-align: center;
   }
 
@@ -3863,18 +3855,6 @@ input[type=range]::-moz-range-thumb {
 @supports not (font-size: clamp( 1.875rem , 1.4204545455rem  +  2.2727272727vw , 3.125rem )) {
     .newpaige-title {
       font-size: calc(1.875rem + 1.25 * (100vw - 20rem) / 55);
-    }
-}
-
-@supports (margin-left: clamp( 2.5rem , 0.4545454545rem  +  10.2272727273vw , 8.125rem )) {
-    .place-footer__info {
-      margin-left: clamp( 2.5rem , 0.4545454545rem  +  10.2272727273vw , 8.125rem );
-    }
-}
-
-@supports not (margin-left: clamp( 2.5rem , 0.4545454545rem  +  10.2272727273vw , 8.125rem )) {
-    .place-footer__info {
-      margin-left: calc(2.5rem + 5.625 * (100vw - 20rem) / 55);
     }
 }
 
