@@ -3051,7 +3051,7 @@ input[type=range]::-moz-range-thumb {
   }
 
   .place-footer__info {
-    margin: 0rem 0rem 0rem 0rem;
+    margin-left: 0;
     text-align: center;
   }
 
