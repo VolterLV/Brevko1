@@ -1452,7 +1452,7 @@ body::after {
 .warrior {
   padding-top: 130px;
   padding-bottom: 90px;
-  background-size: cover;
+  background-size: cover !important;
   /* .warrior__body */
   /* .warrior__info */
   /* .warrior__title */
