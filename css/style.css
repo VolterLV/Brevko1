@@ -774,11 +774,10 @@ body::after {
 }
 
 .no-webp .poll-footer{
-  background: url("../img/poll-bg.jpg") no-repeat center center; }
+  background: url("../img/poll-bg.jpg") no-repeat center center/cover; }
 
 .poll-footer {
   margin: 130px 0px 0px 0px;
-  background-size: cover;
   /* .poll-footer__body */
   /* .poll-footer__title */
   /* .poll-footer__subtitle */
@@ -4049,7 +4048,7 @@ input[type=range]::-moz-range-thumb {
   }
 }
 
-.webp .poll-footer{ background: url(../img/poll-bg.webp) no-repeat center center; }
+.webp .poll-footer{ background: url(../img/poll-bg.webp) no-repeat center center/cover; }
 
 .webp .page{ background: -webkit-gradient(linear, left top, left bottom, from(rgba(6, 9, 8, 0)), to(#0c0e0f)), url(../img/mainPage/mainbg.webp) no-repeat center center; }
 
