@@ -372,7 +372,6 @@ body::after {
   font-family: "Viaoda Libre";
   font-style: normal;
   font-weight: 400;
-  font-size: 30px;
   line-height: 42px;
   text-align: center;
   text-transform: uppercase;
@@ -420,8 +419,6 @@ body::after {
   font-weight: 400;
   font-size: 18px;
   line-height: 140%;
-  -webkit-font-feature-settings: "pnum" on, "lnum" on;
-          font-feature-settings: "pnum" on, "lnum" on;
   color: #c1c1c1;
 }
 
@@ -466,6 +463,22 @@ body::after {
   line-height: 42px;
   text-transform: uppercase;
   color: #ffffff;
+  opacity: 0;
+  -webkit-transition: opacity 1s ease 0s, -webkit-transform 1s ease 0s;
+  transition: opacity 1s ease 0s, -webkit-transform 1s ease 0s;
+  -o-transition: transform 1s ease 0s, opacity 1s ease 0s;
+  transition: transform 1s ease 0s, opacity 1s ease 0s;
+  transition: transform 1s ease 0s, opacity 1s ease 0s, -webkit-transform 1s ease 0s;
+  -webkit-transform: scale(0);
+      -ms-transform: scale(0);
+          transform: scale(0);
+}
+
+.main-title._watcher-view {
+  opacity: 1;
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
 }
 
 .newpaige-title {
@@ -477,6 +490,16 @@ body::after {
   text-transform: uppercase;
   color: #ffffff;
   text-align: center;
+  opacity: 0;
+  -webkit-transition: opacity 1s ease 0s, -webkit-transform 1s ease 0s;
+  transition: opacity 1s ease 0s, -webkit-transform 1s ease 0s;
+  -o-transition: transform 1s ease 0s, opacity 1s ease 0s;
+  transition: transform 1s ease 0s, opacity 1s ease 0s;
+  transition: transform 1s ease 0s, opacity 1s ease 0s, -webkit-transform 1s ease 0s;
+}
+
+.newpaige-title._watcher-view {
+  opacity: 1;
 }
 
 .main-subtitle {
@@ -1066,6 +1089,16 @@ body::after {
   line-height: 71px;
   text-align: center;
   max-width: 770px;
+  opacity: 0;
+  -webkit-transition: opacity 1s ease 0s, -webkit-transform 1s ease 0s;
+  transition: opacity 1s ease 0s, -webkit-transform 1s ease 0s;
+  -o-transition: transform 1s ease 0s, opacity 1s ease 0s;
+  transition: transform 1s ease 0s, opacity 1s ease 0s;
+  transition: transform 1s ease 0s, opacity 1s ease 0s, -webkit-transform 1s ease 0s;
+}
+
+.main__title._watcher-view {
+  opacity: 1;
 }
 
 .main__text {
@@ -1420,7 +1453,6 @@ body::after {
   padding-top: 130px;
   padding-bottom: 90px;
   background-size: cover;
-  padding-top: 130px;
   /* .warrior__body */
   /* .warrior__info */
   /* .warrior__title */
@@ -2838,6 +2870,10 @@ input[type=range]::-moz-range-thumb {
 }
 
 @media (min-width: 75em) {
+  .typebrick__title-popup {
+    font-size: 1.875rem;
+  }
+
   .main-title {
     font-size: 1.875rem;
   }
@@ -2934,6 +2970,10 @@ input[type=range]::-moz-range-thumb {
 }
 
 @media (max-width: 20em) {
+  .typebrick__title-popup {
+    font-size: 1.25rem;
+  }
+
   .main-title {
     font-size: 1.25rem;
   }
@@ -3341,8 +3381,25 @@ input[type=range]::-moz-range-thumb {
 }
 
 @media (max-width: 47.99875em) {
+  .consultation {
+    margin: 0px 30px 0px 30px;
+  }
+
   .consultation__close {
     margin: 20px 20px 16px 0px;
+  }
+
+  .typebrick__title-popup {
+    margin: 15px 0px 20px 0px;
+    line-height: 32px;
+  }
+
+  .typebrick__body-popup {
+    margin: 0px 0px 40px 0px;
+  }
+
+  .typebrick__img-body img {
+    width: 250px;
   }
 
   .typebrick__img-left {
@@ -3829,6 +3886,18 @@ input[type=range]::-moz-range-thumb {
 }
 
 @media (min-width: 20em) and (max-width: 75em) {
+@supports (font-size: clamp( 1.25rem , 1.0227272727rem  +  1.1363636364vw , 1.875rem )) {
+    .typebrick__title-popup {
+      font-size: clamp( 1.25rem , 1.0227272727rem  +  1.1363636364vw , 1.875rem );
+    }
+}
+
+@supports not (font-size: clamp( 1.25rem , 1.0227272727rem  +  1.1363636364vw , 1.875rem )) {
+    .typebrick__title-popup {
+      font-size: calc(1.25rem + 0.625 * (100vw - 20rem) / 55);
+    }
+}
+
 @supports (font-size: clamp( 1.25rem , 1.0227272727rem  +  1.1363636364vw , 1.875rem )) {
     .main-title {
       font-size: clamp( 1.25rem , 1.0227272727rem  +  1.1363636364vw , 1.875rem );
