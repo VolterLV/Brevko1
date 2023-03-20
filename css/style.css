@@ -3754,6 +3754,10 @@ input[type=range]::-moz-range-thumb {
   .calc__type-body {
     gap: 10px;
   }
+
+  .calc__btn-body {
+    gap: 15px;
+  }
 }
 
 @media (max-width: 20em) {
@@ -3852,7 +3856,7 @@ input[type=range]::-moz-range-thumb {
     gap: 50px;
   }
 
-  .delivery__set h3 {
+  .delivery__set {
     margin: 0px 10px 0px 0px;
     gap: 45px;
   }
@@ -4350,7 +4354,7 @@ input[type=range]::-moz-range-thumb {
     gap: 20px;
   }
 
-  .delivery__set h3 {
+  .delivery__set {
     font-size: 16px;
     line-height: 110%;
     gap: 15px;
@@ -4856,6 +4860,12 @@ input[type=range]::-moz-range-thumb {
 @media (max-width: 47.99875em) and (any-hover: none) {
   .icon-menu {
     cursor: default;
+  }
+}
+
+@media (max-width: 31.25em) {
+  .informations__form-input input {
+    margin: 0rem 0rem 0rem 0rem;
   }
 }
 
