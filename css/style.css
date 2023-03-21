@@ -1714,13 +1714,13 @@ img:before {
   background-size: cover;
 }
 
-.no-webp .page{
+  .page{
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(6, 9, 8, 0)), to(#0c0e0f)), url("img/mainPage/mainbg.jpg") no-repeat center center; }
 
-.no-webp .page{
+ .page{
   background: -o-linear-gradient(top, rgba(6, 9, 8, 0) 0%, #0c0e0f 100%), url("img/mainPage/mainbg.jpg") no-repeat center center; }
 
-.no-webp .page{
+  .page{
   background: linear-gradient(180deg, rgba(6, 9, 8, 0) 0%, #0c0e0f 100%), url("img/mainPage/mainbg.jpg") no-repeat center center; }
 
 .page {
