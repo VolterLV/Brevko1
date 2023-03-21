@@ -1422,12 +1422,8 @@ img:before {
   display: none;
 }
 
-.no-webp .poll-footer{
-  background: url("../img/poll-bg.jpg") no-repeat center center; }
-
 .poll-footer {
   margin: 130px 0px 0px 0px;
-  background-size: cover !important;
   /* .poll-footer__body */
   /* .poll-footer__title */
   /* .poll-footer__subtitle */
@@ -1711,6 +1707,13 @@ img:before {
   color: #ffffff;
 }
 
+.no-webp .warrior{
+  background: url("../img/sliderWarrior/warriors-bg.jpg") no-repeat center center; }
+
+.warrior {
+  background-size: cover;
+}
+
 .no-webp .page{
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(6, 9, 8, 0)), to(#0c0e0f)), url("img/mainPage/mainbg.jpg") no-repeat center center; }
 
@@ -1721,7 +1724,14 @@ img:before {
   background: linear-gradient(180deg, rgba(6, 9, 8, 0) 0%, #0c0e0f 100%), url("img/mainPage/mainbg.jpg") no-repeat center center; }
 
 .page {
-  background-size: cover !important;
+  background-size: cover;
+}
+
+.no-webp .poll-footer{
+  background: url("../img/poll-bg.jpg") no-repeat center center; }
+
+.poll-footer {
+  background-size: cover;
 }
 
 .main {
@@ -2143,13 +2153,9 @@ img:before {
   right: 0;
 }
 
-.no-webp .warrior{
-  background: url("../img/sliderWarrior/warriors-bg.jpg") no-repeat center center; }
-
 .warrior {
   padding-top: 130px;
   padding-bottom: 90px;
-  background-size: cover !important;
   /* .warrior__body */
   /* .warrior__info */
   /* .warrior__title */
@@ -5277,7 +5283,7 @@ input[type=range]::-moz-range-thumb {
   }
 }
 
-.webp .poll-footer{ background: url(../img/poll-bg.webp) no-repeat center center; }
+.webp .warrior{ background: url(../img/sliderWarrior/warriors-bg.webp) no-repeat center center; }
 
 .webp .page{ background: -webkit-gradient(linear, left top, left bottom, from(rgba(6, 9, 8, 0)), to(#0c0e0f)), url(img/mainPage/mainbg.webp) no-repeat center center; }
 
@@ -5285,4 +5291,4 @@ input[type=range]::-moz-range-thumb {
 
 .webp .page{ background: linear-gradient(180deg, rgba(6, 9, 8, 0) 0%, #0c0e0f 100%), url(img/mainPage/mainbg.webp) no-repeat center center; }
 
-.webp .warrior{ background: url(../img/sliderWarrior/warriors-bg.webp) no-repeat center center; }
+.webp .poll-footer{ background: url(../img/poll-bg.webp) no-repeat center center; }
