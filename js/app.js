@@ -6646,7 +6646,6 @@
     if (graniteChecbox) graniteChecbox.addEventListener("change", handleGraniteChange);
     if (marbleChecbox) marbleChecbox.addEventListener("change", handleMarbleChange);
     function handleCategoryChange(event) {
-        showMore();
         const selectedCategory = event.target.value;
         cardElements.forEach((cardElement => {
             availableCheckbox.checked = false;
