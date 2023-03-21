@@ -204,6 +204,9 @@
         document.documentElement.classList.remove("menu-open");
     }
     function showMore() {
+        let count = 1;
+        count++;
+        console.log("count", count);
         window.addEventListener("load", (function(e) {
             const showMoreBlocks = document.querySelectorAll("[data-showmore]");
             let showMoreBlocksRegular;
@@ -3488,6 +3491,7 @@
                 lazy: true,
                 spaceBetween: 20,
                 autoHeight: true,
+                loop: true,
                 speed: 800,
                 parallax: true,
                 navigation: {
@@ -6642,6 +6646,7 @@
     if (graniteChecbox) graniteChecbox.addEventListener("change", handleGraniteChange);
     if (marbleChecbox) marbleChecbox.addEventListener("change", handleMarbleChange);
     function handleCategoryChange(event) {
+        showMore();
         const selectedCategory = event.target.value;
         cardElements.forEach((cardElement => {
             availableCheckbox.checked = false;
@@ -6657,6 +6662,7 @@
         }));
     }
     function handleTypeChange(event) {
+        showMore();
         const selectedType = event.target.value;
         cardElements.forEach((cardElement => {
             if (this.checked) {

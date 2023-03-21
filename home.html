@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230321172424">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230321215334">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,8 +31,8 @@
 								<div class="header__icons-box">
 									<a href="tel:+380991160508"> <img src="img/icons/phone.svg" alt=""></a>
 									<div class="header__phonenumber">
-										<a href="tel:+380991160508">+38 099 116 05 08</a>
-										<a href="tel:+380969358721">+38 096 935 87 21</a>
+										<a href="tel:+380991160508">+099 116 05 08</a>
+										<a href="tel:+380969358721">+096 935 87 21</a>
 									</div>
 
 									<button type="button" class="menu__icon icon-menu">
@@ -156,9 +156,9 @@
 							</div>
 							<div class="services__card-subtitle services__list">
 								<ul>
-									<li>Які види бетону може бути</li>
-									<li>Які види бетону може бути</li>
-									<li>Які види бетону може бути</li>
+									<li>Які види бетону можуть бути</li>
+									<li>Які види бетону можуть бути</li>
+									<li>Які види бетону можуть бути</li>
 								</ul>
 							</div>
 						</div>
@@ -171,6 +171,13 @@
 							<div class="services__card-title">
 								Проектування памʼятників 3д
 							</div>
+							<div class="services__card-subtitle services__list">
+								<ul>
+									<li>Які проекти можуть бути</li>
+									<li>Які проекти можуть бути</li>
+									<li>Які проекти можуть бути</li>
+								</ul>
+							</div>
 						</div>
 						<div class="services__more">
 							<a href="progect.html">Дивитися більше</a> <img src="img/icons/arrow-more.svg" alt="">
@@ -182,11 +189,11 @@
 							<div class="services__card-title">
 								Доставка
 							</div>
-							<a href="" data-popup="#popup-calc" class="services__card-subtitle"><img src="img/icons/calc.svg" alt=""> Розрахувати
-								вартість доставки
+							<a href="" data-popup="#popup-calc" class="services__card-subtitle"><img src="img/icons/calc.svg" alt=""><span>Розрахувати
+									вартість</span>
 							</a>
-							<a href="tel:+380991160508" class="services__card-subtitle"><img src="img/icons/phone.svg" alt=""> Зворотній
-								звязок
+							<a href="tel:+380991160508" class="services__card-subtitle"><img src="img/icons/phone.svg" alt=""> <span>Зворотній
+									звязок</span>
 							</a>
 						</div>
 
@@ -256,7 +263,7 @@
 						</div>
 						<div class="brick__buttons">
 							<a href="katalog.html" class="brick__button main-button">каталог</a>
-							<div class="brick__buttons-slider">
+							<div class="brick__buttons-slider main-buttons-slider">
 								<!-- Якщо потрібна навігація (ліворуч/праворуч) -->
 								<button type="button" class="swiper-button-prev"><img src="img/icons/arrov-left.svg" alt=""></button>
 								<button type="button" class="swiper-button-next"><img src="img/icons/arrov-right.svg" alt=""></button>
@@ -314,7 +321,7 @@
 								<p><a href="goods.html" class="main-button">дивитися більше</a></p>
 							</div>
 						</div>
-						<div class="warrior__buttons-slider">
+						<div class="warrior__buttons-slider main-buttons-slider">
 							<!-- Якщо потрібна навігація (ліворуч/праворуч) -->
 							<button type="button" class="swiper-button-prev"><img src="img/icons/arrov-left.svg" alt=""></button>
 							<button type="button" class="swiper-button-next"><img src="img/icons/arrov-right.svg" alt=""></button>
@@ -409,7 +416,7 @@
 								<div class="typebrick__text">Граніт Василівський (АutumnUkrainian)</div>
 							</div>
 						</div>
-						<div class="typebrick__buttons-slider">
+						<div class="typebrick__buttons-slider main-buttons-slider">
 							<!-- Якщо потрібна навігація (ліворуч/праворуч) -->
 							<button type="button" class="swiper-button-prev"><img src="img/icons/arrov-left.svg" alt=""></button>
 							<button type="button" class="swiper-button-next"><img src="img/icons/arrov-right.svg" alt=""></button>
@@ -530,7 +537,7 @@
 								<p><a href="goods.html" class="main-button">дивитися більше</a></p>
 							</div>
 						</div>
-						<div class="thred__buttons-slider">
+						<div class="thred__buttons-slider main-buttons-slider">
 							<!-- Якщо потрібна навігація (ліворуч/праворуч) -->
 							<button type="button" class="swiper-button-prev"><img src="img/icons/arrov-left.svg" alt=""></button>
 							<button type="button" class="swiper-button-next"><img src="img/icons/arrov-right.svg" alt=""></button>
@@ -549,20 +556,19 @@
 					<form class="consultation">
 
 						<label class="consultation__label" for="name">Ім'я</label>
-						<input type="text" id="name" name="name" required>
+						<input type="text" id="name" name="name">
 						<div class="consultation__line"></div>
 						<label class="consultation__label" for="phone">Номер телефону*</label>
 						<div class="consultation__phone-input">
-
-							<input type="text" name="phone" id="phone" />
+							<input type="text" name="phone" id="phone" placeholder="+380-" required />
 						</div>
 						<div class="consultation__line"></div>
 						<label class="consultation__label" for="location">Ваше місцезнаходження</label>
-						<input type="text" id="location" name="location">
+						<input type="text" id="location" name="location" placeholder="м. Івано-Франківськ">
 						<div class="consultation__line"></div>
-
+						<button class="consultation__button main-buttoncolor">Замовити консультацію</button>
 					</form>
-					<button class="consultation__button main-buttoncolor">Замовити консультацію</button>
+
 				</div>
 			</div>
 		</div>
@@ -840,11 +846,10 @@
 			<section class="poll-footer">
 				<div class="poll-footer__container">
 					<div class="poll-footer__body ">
-						<h2 data-watch class="poll-footer__title main-title">Виготовлення памʼятників по доступній ціні <br> за
-							найвищою
-							якістю
+						<h2 data-watch class="poll-footer__title main-title">Виготовлення памʼятників по доступній ціні за
+							найвищою якістю
 						</h2>
-						<div class="poll-footer__subtitle">Пройдіть опитування і дізнайтеся стосовно <br> ваших вподобань ціну
+						<div class="poll-footer__subtitle">Пройдіть опитування і дізнайтеся стосовно ваших вподобань ціну
 							памятника</div>
 						<a href="" data-popup="#popup-calc" class="poll-footer__button main-buttoncolor">Розрахувати
 							вартість</a>
@@ -901,9 +906,9 @@
 								<img src="img/icons/phone.svg" alt="">
 								<div class="place-footer__phonenumber">
 
-									<a href="tel:+380991160508">+38 099 116 05 08</a>
+									<a href="tel:+380991160508">099 116 05 08</a>
 
-									<a href="tel:+380969358721">+38 096 935 87 21</a>
+									<a href="tel:+380969358721">096 935 87 21</a>
 								</div>
 								<div class="place-footer__socials">
 									<a href="viber://chat?number=+380991160508"> <img src="img/icons/viber.svg" alt=""></a>
@@ -915,7 +920,7 @@
 							<h2 data-watch class="place-footer__title-bottom main-title">Слідкуй за нами</h2>
 							<div class="place-footer__inst">
 								<a href="https://www.instagram.com"><img src="img/icons/instagram.svg" alt=""></a>
-								<a href="https://www.facebook.com/pamyatiki.if"></a><img src="img/icons/facebook.svg" alt="">
+								<a href="https://www.facebook.com/pamyatiki.if"><img src="img/icons/facebook.svg" alt=""></a>
 							</div>
 
 						</div>
@@ -946,7 +951,7 @@
 		</footer>
 	</div>
 
-	<script src="js/app.min.js?_v=20230321172424"></script>
+	<script src="js/app.min.js?_v=20230321215334"></script>
 </body>
 
 </html>
