@@ -476,7 +476,7 @@ body::after {
 
 .calc__progress-bar-body {
   width: 857px;
-  margin: 52px 0px 87px 0px;
+  margin: 50px 0px 80px 0px;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -536,7 +536,6 @@ body::after {
 }
 
 .calc__title {
-  min-height: 60px;
   font-family: "Viaoda Libre";
   font-style: normal;
   font-weight: 400;
@@ -548,7 +547,7 @@ body::after {
 }
 
 .calc__main-body {
-  min-height: 400px;
+  min-height: 355px;
   margin: 40px 0px 0px 0px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -556,9 +555,9 @@ body::after {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
 .calc__basis-body {
@@ -639,7 +638,7 @@ body::after {
 }
 
 .calc__type-body {
-  min-height: 400px;
+  min-height: 355px;
   margin: 40px 0px 0px 0px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -694,7 +693,6 @@ body::after {
 }
 
 .calc__image-radio img {
-  border: 1px solid transparent;
   cursor: pointer;
   width: 100%;
   height: 100%;
@@ -703,6 +701,7 @@ body::after {
 }
 
 .calc__image-hover {
+  border: 1px solid transparent;
   padding: 6px 6px 30px 6px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -749,7 +748,7 @@ body::after {
 }
 
 .calc__next-btn {
-  margin: 0px 0px 100px 0px;
+  margin: 0px 0px 85px 0px;
   padding: 12px 0px;
   min-width: 288px;
   font-style: normal;
@@ -771,7 +770,7 @@ body::after {
 }
 
 .calc__back-btn {
-  margin: 0px 0px 100px 0px;
+  margin: 0px 0px 85px 0px;
   padding: 12px 0px;
   min-width: 288px;
   font-style: normal;
@@ -910,10 +909,8 @@ body::after {
   border: 1px solid #ffffff;
 }
 
-.no-webp input[type=radio]:checked + .delivery__radio-custom{
-  background: url("../img/icons/check.png") center center no-repeat; }
-
 input[type=radio]:checked + .delivery__radio-custom {
+  background: url("../img/icons/check.svg") center center no-repeat;
   border: 1px solid #d6b896;
 }
 
@@ -1019,6 +1016,10 @@ input[type=radio]:checked + .delivery__radio-custom {
      object-fit: contain;
 }
 
+input {
+  outline: none;
+}
+
 .main-title {
   font-family: "Viaoda Libre";
   font-style: normal;
@@ -1112,8 +1113,8 @@ input[type=radio]:checked + .delivery__radio-custom {
   z-index: 100;
   cursor: pointer;
   position: fixed;
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   bottom: 0;
   right: 0;
@@ -2718,10 +2719,8 @@ input[type=radio]:checked + .delivery__radio-custom {
   font-size: 18px;
 }
 
-.no-webp input[type=checkbox]:checked + .katalog__checkbox-custom{
-  background: url("../img/icons/check-cube.png") center center no-repeat; }
-
 input[type=checkbox]:checked + .katalog__checkbox-custom {
+  background: url("../img/icons/check-cube.svg") center center no-repeat;
   border: 1px solid #d6b896;
 }
 
@@ -2754,10 +2753,8 @@ input[type=checkbox]:checked + .katalog__checkbox-custom {
   display: none;
 }
 
-.no-webp .ratio-input-list li label input[type=radio]:checked + .radio-button{
-  background: url("../img/icons/check.png") center center no-repeat; }
-
 .ratio-input-list li label input[type=radio]:checked + .radio-button {
+  background: url("../img/icons/check.svg") center center no-repeat;
   border: 1px solid #d6b896;
 }
 
@@ -3755,8 +3752,31 @@ input[type=range]::-moz-range-thumb {
     gap: 10px;
   }
 
+  .calc__image-radio span {
+    font-size: 14px;
+  }
+
   .calc__btn-body {
-    gap: 15px;
+    gap: 10px;
+  }
+
+  .calc__next-btn {
+    font-size: 16px;
+  }
+
+  .calc__back-btn {
+    font-size: 16px;
+  }
+
+  .delivery__sity input {
+    max-width: 170px;
+  }
+}
+
+@media (max-width: 400px) {
+  .calc__image-first img {
+    width: 60px;
+    height: 60px;
   }
 }
 
@@ -4298,6 +4318,7 @@ input[type=range]::-moz-range-thumb {
   .calc__title {
     font-size: 20px;
     line-height: 30px;
+    min-height: 60px;
   }
 
   .calc__main-body {
@@ -4506,7 +4527,7 @@ input[type=range]::-moz-range-thumb {
   }
 
   .poll-footer {
-    margin: 70px 0px 0px 0px;
+    margin: 50px 0px 0px 0px;
   }
 
   .poll-footer__title {
@@ -4523,7 +4544,7 @@ input[type=range]::-moz-range-thumb {
   }
 
   .advantages-footer {
-    margin: 70px 0px 0px 0px;
+    margin: 50px 0px 0px 0px;
   }
 
   .place-footer {
@@ -4560,6 +4581,10 @@ input[type=range]::-moz-range-thumb {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+  }
+
+  .menu-footer__copyright {
+    margin: 30px 0px 50px 0px;
   }
 
   .main {
@@ -5068,8 +5093,6 @@ input[type=range]::-moz-range-thumb {
   }
 }
 
-.webp input[type=radio]:checked + .delivery__radio-custom{ background: url(../img/icons/check.webp) center center no-repeat; }
-
 .webp .poll-footer{ background: url(../img/poll-bg.webp) no-repeat center center; }
 
 .webp .page{ background: -webkit-gradient(linear, left top, left bottom, from(rgba(6, 9, 8, 0)), to(#0c0e0f)), url(../img/mainPage/mainbg.webp) no-repeat center center; }
@@ -5079,7 +5102,3 @@ input[type=range]::-moz-range-thumb {
 .webp .page{ background: linear-gradient(180deg, rgba(6, 9, 8, 0) 0%, #0c0e0f 100%), url(../img/mainPage/mainbg.webp) no-repeat center center; }
 
 .webp .warrior{ background: url(../img/sliderWarrior/warriors-bg.webp) no-repeat center center; }
-
-.webp input[type=checkbox]:checked + .katalog__checkbox-custom{ background: url(../img/icons/check-cube.webp) center center no-repeat; }
-
-.webp .ratio-input-list li label input[type=radio]:checked + .radio-button{ background: url(../img/icons/check.webp) center center no-repeat; }
