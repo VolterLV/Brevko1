@@ -1711,27 +1711,27 @@ img:before {
   background: url("../img/sliderWarrior/warriors-bg.jpg") no-repeat center center; }
 
 .warrior {
-  background-size: cover;
+  background-size: cover !important;
 }
 
 .no-webp .page{
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(6, 9, 8, 0)), to(#0c0e0f)), url("img/mainPage/mainbg.jpg") no-repeat center center; }
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(6, 9, 8, 0)), to(#0c0e0f)), url("../img/mainPage/mainbg.jpg") no-repeat center center; }
 
 .no-webp .page{
-  background: -o-linear-gradient(top, rgba(6, 9, 8, 0) 0%, #0c0e0f 100%), url("img/mainPage/mainbg.jpg") no-repeat center center; }
+  background: -o-linear-gradient(top, rgba(6, 9, 8, 0) 0%, #0c0e0f 100%), url("../img/mainPage/mainbg.jpg") no-repeat center center; }
 
 .no-webp .page{
-  background: linear-gradient(180deg, rgba(6, 9, 8, 0) 0%, #0c0e0f 100%), url("img/mainPage/mainbg.jpg") no-repeat center center; }
+  background: linear-gradient(180deg, rgba(6, 9, 8, 0) 0%, #0c0e0f 100%), url("../img/mainPage/mainbg.jpg") no-repeat center center; }
 
 .page {
-  background-size: cover;
+  background-size: cover !important;
 }
 
 .no-webp .poll-footer{
   background: url("../img/poll-bg.jpg") no-repeat center center; }
 
 .poll-footer {
-  background-size: cover;
+  background-size: cover !important;
 }
 
 .main {
@@ -5285,10 +5285,10 @@ input[type=range]::-moz-range-thumb {
 
 .webp .warrior{ background: url(../img/sliderWarrior/warriors-bg.webp) no-repeat center center; }
 
-.webp .page{ background: -webkit-gradient(linear, left top, left bottom, from(rgba(6, 9, 8, 0)), to(#0c0e0f)), url(img/mainPage/mainbg.webp) no-repeat center center; }
+.webp .page{ background: -webkit-gradient(linear, left top, left bottom, from(rgba(6, 9, 8, 0)), to(#0c0e0f)), url(../img/mainPage/mainbg.webp) no-repeat center center; }
 
-.webp .page{ background: -o-linear-gradient(top, rgba(6, 9, 8, 0) 0%, #0c0e0f 100%), url(img/mainPage/mainbg.webp) no-repeat center center; }
+.webp .page{ background: -o-linear-gradient(top, rgba(6, 9, 8, 0) 0%, #0c0e0f 100%), url(../img/mainPage/mainbg.webp) no-repeat center center; }
 
-.webp .page{ background: linear-gradient(180deg, rgba(6, 9, 8, 0) 0%, #0c0e0f 100%), url(img/mainPage/mainbg.webp) no-repeat center center; }
+.webp .page{ background: linear-gradient(180deg, rgba(6, 9, 8, 0) 0%, #0c0e0f 100%), url(../img/mainPage/mainbg.webp) no-repeat center center; }
 
 .webp .poll-footer{ background: url(../img/poll-bg.webp) no-repeat center center; }
