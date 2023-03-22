@@ -6878,6 +6878,15 @@
     }));
     updateProgressBar();
     showScreen(0);
+    const checkboxYes = document.getElementById("delivery-yes");
+    const checkboxNo = document.getElementById("delivery-no");
+    const hidenBody = document.querySelector(".delivery__hiden-body");
+    if (checkboxYes) checkboxYes.addEventListener("change", handleYesChange);
+    if (checkboxNo) checkboxNo.addEventListener("change", handleYesChange);
+    function handleYesChange(event) {
+        const checked = event.target.value;
+        if ("ni" === checked) hidenBody.classList.remove("delivery__body-hiden"); else hidenBody.classList.add("delivery__body-hiden");
+    }
     window["FLS"] = true;
     menuInit();
     spollers();

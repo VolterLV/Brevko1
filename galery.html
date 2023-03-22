@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230322215613">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230322231950">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -436,33 +436,35 @@
 								<div class="calc__delivery-body delivery__calс">
 									<div class="delivery__yesno-body">
 										<label>
-											<input type="radio" name="dostavka" value="tak">
+											<input id="delivery-yes" type="radio" name="dostavka" value="tak" checked="checked">
 											<span class="delivery__radio-custom"></span>
 											Так
 										</label>
 										<label>
-											<input type="radio" name="dostavka" value="ni">
+											<input id="delivery-no" type="radio" name="dostavka" value="ni">
 											<span class="delivery__radio-custom"></span>
 											Ні
 										</label>
 									</div>
-									<h3 class="delivery__title">Доставка</h3>
+									<div class="delivery__hiden-body delivery__body-hiden">
+										<h3 class="delivery__title">Доставка</h3>
 
-									<label class="delivery__sity">Місто або село: <input type="text" name="misto"></label>
-									<div class="delivery__line"></div>
-									<div class="delivery__set">
-										<h3>Чи бажаєте, щоб ми встановили пам'ятник?</h3>
-										<div class="delivery__yesno-body">
-											<label>
-												<input type="radio" name="dostavka" value="tak">
-												<span class="delivery__radio-custom"></span>
-												Так
-											</label>
-											<label>
-												<input type="radio" name="dostavka" value="ni">
-												<span class="delivery__radio-custom"></span>
-												Ні
-											</label>
+										<label class="delivery__sity">Місто або село: <input type="text" name="misto"></label>
+										<div class="delivery__line"></div>
+										<div class="delivery__set">
+											<h3>Чи бажаєте, щоб ми встановили пам'ятник?</h3>
+											<div class="delivery__yesno-body">
+												<label>
+													<input type="radio" name="dostavka" value="tak">
+													<span class="delivery__radio-custom"></span>
+													Так
+												</label>
+												<label>
+													<input type="radio" name="dostavka" value="ni">
+													<span class="delivery__radio-custom"></span>
+													Ні
+												</label>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -482,7 +484,9 @@
 										<h4>Заповніть форму, щоб отримати розрахунок вартості пам'ятника</h4>
 										<label class="informations__form-input">Ім'я: <input type="text" name="name"></label>
 										<div class="informations__line"></div>
-										<label for="phone" class="informations__form-input">Номер телефону*:<input type="tel" name="phone" id="phone-number" placeholder="+380-" required> </label>
+										<label for="phone" class="informations__form-input">Номер <p> телефону*</p>
+											:<input type="tel" name="phone" id="phone-number" placeholder="+380-" required>
+										</label>
 										<div class="informations__line"></div>
 										<label class="informations__form-input">Емейл:<input type="email" name="email"> </label>
 										<div class="informations__line"></div>
@@ -623,7 +627,7 @@
 		</footer>
 	</div>
 
-	<script src="js/app.min.js?_v=20230322215613"></script>
+	<script src="js/app.min.js?_v=20230322231950"></script>
 </body>
 
 </html>
