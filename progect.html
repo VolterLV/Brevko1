@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230321223141">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230322171405">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,8 +31,8 @@
 							<div class="header__icons-box">
 								<a href="tel:+380991160508"> <img src="img/icons/phone.svg" alt=""></a>
 								<div class="header__phonenumber">
-									<a href="tel:+380991160508">+099 116 05 08</a>
-									<a href="tel:+380969358721">+096 935 87 21</a>
+									<a href="tel:+380991160508">099 116 05 08</a>
+									<a href="tel:+380969358721">096 935 87 21</a>
 								</div>
 
 								<button type="button" class="menu__icon icon-menu">
@@ -410,20 +410,22 @@
 								<div class="calc__informations-body informations__calc">
 									<h4>Заповніть форму, щоб отримати розрахунок вартості пам'ятника</h4>
 									<form class="informations__form-body">
-										<label class="informations__form-input">Ім'я*: <input type="text" name="name" required></label>
+										<label class="informations__form-input">Ім'я: <input type="text" name="name"></label>
 										<div class="informations__line"></div>
-										<label class="informations__form-input">Номер телефону*: <input type="tel" name="phone" required></label>
+										<label for="phone" class="informations__form-input">Номер телефону*:<input type="tel" name="phone" placeholder="+380-" required> </label>
 										<div class="informations__line"></div>
-										<label class="informations__form-input">Емейл: <input type="email" name="email"></label>
+										<label class="informations__form-input">Емейл:<input type="email" name="email"> </label>
 										<div class="informations__line"></div>
 										<hr>
+										<button class="calc__next-btn">Надіслати</button>
 									</form>
+									<div class="calc__btn-body">
+										<button class="calc__back-btn">Назад</button>
+
+									</div>
 								</div>
 							</div>
-							<div class="calc__btn-body">
-								<button class="calc__back-btn">Назад</button>
-								<button class="calc__next-btn">Надіслати</button>
-							</div>
+
 
 						</div>
 
@@ -443,6 +445,7 @@
 		<footer class="footer">
 
 			<section class="poll-footer">
+
 				<div class="poll-footer__container">
 					<div class="poll-footer__body ">
 						<h2 data-watch class="poll-footer__title main-title">Виготовлення памʼятників по доступній ціні за
@@ -544,12 +547,15 @@
 					<hr class="menu-footer__line">
 					<div class="menu-footer__copyright">@ Copyright Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 						sed do eiusmod tempor incididunt </div>
+					<a class="menu-footer__wantsite" href="https://t.me/delancer">
+						<div>Хочеш свій сайт? delancer.pro </div>
+					</a>
 				</div>
 			</section>
 
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20230321223141"></script>
+	<script src="js/app.min.js?_v=20230322171405"></script>
 </body>
 
 </html>

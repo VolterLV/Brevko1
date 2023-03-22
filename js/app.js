@@ -204,9 +204,6 @@
         document.documentElement.classList.remove("menu-open");
     }
     function showMore() {
-        let count = 1;
-        count++;
-        console.log("count", count);
         window.addEventListener("load", (function(e) {
             const showMoreBlocks = document.querySelectorAll("[data-showmore]");
             let showMoreBlocksRegular;
@@ -3368,14 +3365,13 @@
         });
     }
     function initSliders() {
-        if (document.querySelector(".swiper__hidden", ".swiper__visible")) {
+        if (document.querySelector(".swiper")) {
             new core(".brick__slider", {
                 modules: [ Navigation ],
                 observer: true,
                 observeParents: true,
                 slidesPerView: 2,
                 spaceBetween: 30,
-                lazy: true,
                 speed: 800,
                 loop: true,
                 parallax: true,
@@ -3413,10 +3409,8 @@
                 observeParents: true,
                 slidesPerView: 2,
                 spaceBetween: 30,
-                lazy: true,
                 speed: 800,
                 loop: true,
-                parallax: true,
                 navigation: {
                     prevEl: ".swiper-button-prev",
                     nextEl: ".swiper-button-next"
