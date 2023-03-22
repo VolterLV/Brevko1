@@ -204,106 +204,104 @@
         document.documentElement.classList.remove("menu-open");
     }
     function showMore() {
-        window.addEventListener("load", (function(e) {
-            const showMoreBlocks = document.querySelectorAll("[data-showmore]");
-            let showMoreBlocksRegular;
-            let mdQueriesArray;
-            if (showMoreBlocks.length) {
-                showMoreBlocksRegular = Array.from(showMoreBlocks).filter((function(item, index, self) {
-                    return !item.dataset.showmoreMedia;
-                }));
-                showMoreBlocksRegular.length ? initItems(showMoreBlocksRegular) : null;
-                document.addEventListener("click", showMoreActions);
-                window.addEventListener("resize", showMoreActions);
-                mdQueriesArray = dataMediaQueries(showMoreBlocks, "showmoreMedia");
-                if (mdQueriesArray && mdQueriesArray.length) {
-                    mdQueriesArray.forEach((mdQueriesItem => {
-                        mdQueriesItem.matchMedia.addEventListener("change", (function() {
-                            initItems(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-                        }));
-                    }));
-                    initItemsMedia(mdQueriesArray);
-                }
-            }
-            function initItemsMedia(mdQueriesArray) {
+        const showMoreBlocks = document.querySelectorAll("[data-showmore]");
+        let showMoreBlocksRegular;
+        let mdQueriesArray;
+        if (showMoreBlocks.length) {
+            showMoreBlocksRegular = Array.from(showMoreBlocks).filter((function(item, index, self) {
+                return !item.dataset.showmoreMedia;
+            }));
+            showMoreBlocksRegular.length ? initItems(showMoreBlocksRegular) : null;
+            document.addEventListener("click", showMoreActions);
+            window.addEventListener("resize", showMoreActions);
+            mdQueriesArray = dataMediaQueries(showMoreBlocks, "showmoreMedia");
+            if (mdQueriesArray && mdQueriesArray.length) {
                 mdQueriesArray.forEach((mdQueriesItem => {
-                    initItems(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
+                    mdQueriesItem.matchMedia.addEventListener("change", (function() {
+                        initItems(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
+                    }));
                 }));
+                initItemsMedia(mdQueriesArray);
             }
-            function initItems(showMoreBlocks, matchMedia) {
-                showMoreBlocks.forEach((showMoreBlock => {
-                    initItem(showMoreBlock, matchMedia);
-                }));
+        }
+        function initItemsMedia(mdQueriesArray) {
+            mdQueriesArray.forEach((mdQueriesItem => {
+                initItems(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
+            }));
+        }
+        function initItems(showMoreBlocks, matchMedia) {
+            showMoreBlocks.forEach((showMoreBlock => {
+                initItem(showMoreBlock, matchMedia);
+            }));
+        }
+        function initItem(showMoreBlock, matchMedia = false) {
+            showMoreBlock = matchMedia ? showMoreBlock.item : showMoreBlock;
+            let showMoreContent = showMoreBlock.querySelectorAll("[data-showmore-content]");
+            let showMoreButton = showMoreBlock.querySelectorAll("[data-showmore-button]");
+            showMoreContent = Array.from(showMoreContent).filter((item => item.closest("[data-showmore]") === showMoreBlock))[0];
+            showMoreButton = Array.from(showMoreButton).filter((item => item.closest("[data-showmore]") === showMoreBlock))[0];
+            const hiddenHeight = getHeight(showMoreBlock, showMoreContent);
+            if (matchMedia.matches || !matchMedia) if (hiddenHeight < getOriginalHeight(showMoreContent)) {
+                _slideUp(showMoreContent, 0, hiddenHeight);
+                showMoreButton.hidden = false;
+            } else {
+                _slideDown(showMoreContent, 0, hiddenHeight);
+                showMoreButton.hidden = true;
+            } else {
+                _slideDown(showMoreContent, 0, hiddenHeight);
+                showMoreButton.hidden = true;
             }
-            function initItem(showMoreBlock, matchMedia = false) {
-                showMoreBlock = matchMedia ? showMoreBlock.item : showMoreBlock;
-                let showMoreContent = showMoreBlock.querySelectorAll("[data-showmore-content]");
-                let showMoreButton = showMoreBlock.querySelectorAll("[data-showmore-button]");
-                showMoreContent = Array.from(showMoreContent).filter((item => item.closest("[data-showmore]") === showMoreBlock))[0];
-                showMoreButton = Array.from(showMoreButton).filter((item => item.closest("[data-showmore]") === showMoreBlock))[0];
-                const hiddenHeight = getHeight(showMoreBlock, showMoreContent);
-                if (matchMedia.matches || !matchMedia) if (hiddenHeight < getOriginalHeight(showMoreContent)) {
-                    _slideUp(showMoreContent, 0, hiddenHeight);
-                    showMoreButton.hidden = false;
-                } else {
-                    _slideDown(showMoreContent, 0, hiddenHeight);
-                    showMoreButton.hidden = true;
-                } else {
-                    _slideDown(showMoreContent, 0, hiddenHeight);
-                    showMoreButton.hidden = true;
+        }
+        function getHeight(showMoreBlock, showMoreContent) {
+            let hiddenHeight = 0;
+            const showMoreType = showMoreBlock.dataset.showmore ? showMoreBlock.dataset.showmore : "size";
+            if ("items" === showMoreType) {
+                const showMoreTypeValue = showMoreContent.dataset.showmoreContent ? showMoreContent.dataset.showmoreContent : 3;
+                const showMoreItems = showMoreContent.children;
+                for (let index = 1; index < showMoreItems.length; index++) {
+                    const showMoreItem = showMoreItems[index - 1];
+                    hiddenHeight += showMoreItem.offsetHeight;
+                    if (index == showMoreTypeValue) break;
                 }
+            } else {
+                const showMoreTypeValue = showMoreContent.dataset.showmoreContent ? showMoreContent.dataset.showmoreContent : 150;
+                hiddenHeight = showMoreTypeValue;
             }
-            function getHeight(showMoreBlock, showMoreContent) {
-                let hiddenHeight = 0;
-                const showMoreType = showMoreBlock.dataset.showmore ? showMoreBlock.dataset.showmore : "size";
-                if ("items" === showMoreType) {
-                    const showMoreTypeValue = showMoreContent.dataset.showmoreContent ? showMoreContent.dataset.showmoreContent : 3;
-                    const showMoreItems = showMoreContent.children;
-                    for (let index = 1; index < showMoreItems.length; index++) {
-                        const showMoreItem = showMoreItems[index - 1];
-                        hiddenHeight += showMoreItem.offsetHeight;
-                        if (index == showMoreTypeValue) break;
+            return hiddenHeight;
+        }
+        function getOriginalHeight(showMoreContent) {
+            let parentHidden;
+            let hiddenHeight = showMoreContent.offsetHeight;
+            showMoreContent.style.removeProperty("height");
+            if (showMoreContent.closest(`[hidden]`)) {
+                parentHidden = showMoreContent.closest(`[hidden]`);
+                parentHidden.hidden = false;
+            }
+            let originalHeight = showMoreContent.offsetHeight;
+            parentHidden ? parentHidden.hidden = true : null;
+            showMoreContent.style.height = `${hiddenHeight}px`;
+            return originalHeight;
+        }
+        function showMoreActions(e) {
+            const targetEvent = e.target;
+            const targetType = e.type;
+            if ("click" === targetType) {
+                if (targetEvent.closest("[data-showmore-button]")) {
+                    const showMoreButton = targetEvent.closest("[data-showmore-button]");
+                    const showMoreBlock = showMoreButton.closest("[data-showmore]");
+                    const showMoreContent = showMoreBlock.querySelector("[data-showmore-content]");
+                    const showMoreSpeed = showMoreBlock.dataset.showmoreButton ? showMoreBlock.dataset.showmoreButton : "500";
+                    const hiddenHeight = getHeight(showMoreBlock, showMoreContent);
+                    if (!showMoreContent.classList.contains("_slide")) {
+                        showMoreBlock.classList.contains("_showmore-active") ? _slideUp(showMoreContent, showMoreSpeed, hiddenHeight) : _slideDown(showMoreContent, showMoreSpeed, hiddenHeight);
+                        showMoreBlock.classList.toggle("_showmore-active");
                     }
-                } else {
-                    const showMoreTypeValue = showMoreContent.dataset.showmoreContent ? showMoreContent.dataset.showmoreContent : 150;
-                    hiddenHeight = showMoreTypeValue;
                 }
-                return hiddenHeight;
+            } else if ("resize" === targetType) {
+                showMoreBlocksRegular && showMoreBlocksRegular.length ? initItems(showMoreBlocksRegular) : null;
+                mdQueriesArray && mdQueriesArray.length ? initItemsMedia(mdQueriesArray) : null;
             }
-            function getOriginalHeight(showMoreContent) {
-                let parentHidden;
-                let hiddenHeight = showMoreContent.offsetHeight;
-                showMoreContent.style.removeProperty("height");
-                if (showMoreContent.closest(`[hidden]`)) {
-                    parentHidden = showMoreContent.closest(`[hidden]`);
-                    parentHidden.hidden = false;
-                }
-                let originalHeight = showMoreContent.offsetHeight;
-                parentHidden ? parentHidden.hidden = true : null;
-                showMoreContent.style.height = `${hiddenHeight}px`;
-                return originalHeight;
-            }
-            function showMoreActions(e) {
-                const targetEvent = e.target;
-                const targetType = e.type;
-                if ("click" === targetType) {
-                    if (targetEvent.closest("[data-showmore-button]")) {
-                        const showMoreButton = targetEvent.closest("[data-showmore-button]");
-                        const showMoreBlock = showMoreButton.closest("[data-showmore]");
-                        const showMoreContent = showMoreBlock.querySelector("[data-showmore-content]");
-                        const showMoreSpeed = showMoreBlock.dataset.showmoreButton ? showMoreBlock.dataset.showmoreButton : "500";
-                        const hiddenHeight = getHeight(showMoreBlock, showMoreContent);
-                        if (!showMoreContent.classList.contains("_slide")) {
-                            showMoreBlock.classList.contains("_showmore-active") ? _slideUp(showMoreContent, showMoreSpeed, hiddenHeight) : _slideDown(showMoreContent, showMoreSpeed, hiddenHeight);
-                            showMoreBlock.classList.toggle("_showmore-active");
-                        }
-                    }
-                } else if ("resize" === targetType) {
-                    showMoreBlocksRegular && showMoreBlocksRegular.length ? initItems(showMoreBlocksRegular) : null;
-                    mdQueriesArray && mdQueriesArray.length ? initItemsMedia(mdQueriesArray) : null;
-                }
-            }
-        }));
+        }
     }
     function functions_FLS(message) {
         setTimeout((() => {
@@ -1059,6 +1057,7 @@
         const attach = (target, options = {}) => {
             const ObserverFunc = window.MutationObserver || window.WebkitMutationObserver;
             const observer = new ObserverFunc((mutations => {
+                if (swiper.__preventObserver__) return;
                 if (1 === mutations.length) {
                     emit("observerUpdate", mutations[0]);
                     return;
@@ -1410,7 +1409,7 @@
         let i;
         if ("number" === typeof speed) swiper.setTransition(speed); else if (true === speed) swiper.setTransition(swiper.params.speed);
         const getSlideByIndex = index => {
-            if (isVirtual) return swiper.slides.filter((el => parseInt(el.getAttribute("data-swiper-slide-index"), 10) === index))[0];
+            if (isVirtual) return swiper.getSlideIndexByData(index);
             return swiper.slides[index];
         };
         if ("auto" !== swiper.params.slidesPerView && swiper.params.slidesPerView > 1) if (swiper.params.centeredSlides) (swiper.visibleSlides || []).forEach((slide => {
@@ -1488,8 +1487,8 @@
             if (isEndRounded) progress = 1;
         }
         if (params.loop) {
-            const firstSlideIndex = utils_elementIndex(swiper.slides.filter((el => "0" === el.getAttribute("data-swiper-slide-index")))[0]);
-            const lastSlideIndex = utils_elementIndex(swiper.slides.filter((el => 1 * el.getAttribute("data-swiper-slide-index") === swiper.slides.length - 1))[0]);
+            const firstSlideIndex = swiper.getSlideIndexByData(0);
+            const lastSlideIndex = swiper.getSlideIndexByData(swiper.slides.length - 1);
             const firstSlideTranslate = swiper.slidesGrid[firstSlideIndex];
             const lastSlideTranslate = swiper.slidesGrid[lastSlideIndex];
             const translateMax = swiper.slidesGrid[swiper.slidesGrid.length - 1];
@@ -1863,7 +1862,7 @@
         }
         const swiper = this;
         let newIndex = index;
-        if (swiper.params.loop) if (swiper.virtual && swiper.params.virtual.enabled) newIndex += swiper.virtual.slidesBefore; else newIndex = utils_elementIndex(swiper.slides.filter((slideEl => 1 * slideEl.getAttribute("data-swiper-slide-index") === newIndex))[0]);
+        if (swiper.params.loop) if (swiper.virtual && swiper.params.virtual.enabled) newIndex += swiper.virtual.slidesBefore; else newIndex = swiper.getSlideIndexByData(newIndex);
         return swiper.slideTo(newIndex, speed, runCallbacks, internal);
     }
     function slideNext(speed = this.params.speed, runCallbacks = true, internal) {
@@ -1961,13 +1960,13 @@
             realIndex = parseInt(swiper.clickedSlide.getAttribute("data-swiper-slide-index"), 10);
             if (params.centeredSlides) if (slideToIndex < swiper.loopedSlides - slidesPerView / 2 || slideToIndex > swiper.slides.length - swiper.loopedSlides + slidesPerView / 2) {
                 swiper.loopFix();
-                slideToIndex = utils_elementIndex(utils_elementChildren(slidesEl, `${slideSelector}[data-swiper-slide-index="${realIndex}"]`)[0]);
+                slideToIndex = swiper.getSlideIndex(utils_elementChildren(slidesEl, `${slideSelector}[data-swiper-slide-index="${realIndex}"]`)[0]);
                 utils_nextTick((() => {
                     swiper.slideTo(slideToIndex);
                 }));
             } else swiper.slideTo(slideToIndex); else if (slideToIndex > swiper.slides.length - slidesPerView) {
                 swiper.loopFix();
-                slideToIndex = utils_elementIndex(utils_elementChildren(slidesEl, `${slideSelector}[data-swiper-slide-index="${realIndex}"]`)[0]);
+                slideToIndex = swiper.getSlideIndex(utils_elementChildren(slidesEl, `${slideSelector}[data-swiper-slide-index="${realIndex}"]`)[0]);
                 utils_nextTick((() => {
                     swiper.slideTo(slideToIndex);
                 }));
@@ -2017,19 +2016,19 @@
         const prependSlidesIndexes = [];
         const appendSlidesIndexes = [];
         let activeIndex = swiper.activeIndex;
-        if ("undefined" === typeof activeSlideIndex) activeSlideIndex = utils_elementIndex(swiper.slides.filter((el => el.classList.contains("swiper-slide-active")))[0]); else activeIndex = activeSlideIndex;
+        if ("undefined" === typeof activeSlideIndex) activeSlideIndex = swiper.getSlideIndex(swiper.slides.filter((el => el.classList.contains(params.slideActiveClass)))[0]); else activeIndex = activeSlideIndex;
         const isNext = "next" === direction || !direction;
         const isPrev = "prev" === direction || !direction;
         let slidesPrepended = 0;
         let slidesAppended = 0;
         if (activeSlideIndex < loopedSlides) {
-            slidesPrepended = loopedSlides - activeSlideIndex;
+            slidesPrepended = Math.max(loopedSlides - activeSlideIndex, params.slidesPerGroup);
             for (let i = 0; i < loopedSlides - activeSlideIndex; i += 1) {
                 const index = i - Math.floor(i / slides.length) * slides.length;
                 prependSlidesIndexes.push(slides.length - index - 1);
             }
         } else if (activeSlideIndex > swiper.slides.length - 2 * loopedSlides) {
-            slidesAppended = activeSlideIndex - (swiper.slides.length - 2 * loopedSlides);
+            slidesAppended = Math.max(activeSlideIndex - (swiper.slides.length - 2 * loopedSlides), params.slidesPerGroup);
             for (let i = 0; i < slidesAppended; i += 1) {
                 const index = i - Math.floor(i / slides.length) * slides.length;
                 appendSlidesIndexes.push(index);
@@ -2074,22 +2073,22 @@
                 byController: true
             };
             if (Array.isArray(swiper.controller.control)) swiper.controller.control.forEach((c => {
-                if (c.params.loop) c.loopFix(loopParams);
+                if (!c.destroyed && c.params.loop) c.loopFix(loopParams);
             })); else if (swiper.controller.control instanceof swiper.constructor && swiper.controller.control.params.loop) swiper.controller.control.loopFix(loopParams);
         }
         swiper.emit("loopFix");
     }
     function loopDestroy() {
         const swiper = this;
-        const {slides, params, slidesEl} = swiper;
+        const {params, slidesEl} = swiper;
         if (!params.loop || swiper.virtual && swiper.params.virtual.enabled) return;
         swiper.recalcSlides();
         const newSlidesOrder = [];
-        slides.forEach((slideEl => {
+        swiper.slides.forEach((slideEl => {
             const index = "undefined" === typeof slideEl.swiperSlideIndex ? 1 * slideEl.getAttribute("data-swiper-slide-index") : slideEl.swiperSlideIndex;
             newSlidesOrder[index] = slideEl;
         }));
-        slides.forEach((slideEl => {
+        swiper.slides.forEach((slideEl => {
             slideEl.removeAttribute("data-swiper-slide-index");
         }));
         newSlidesOrder.forEach((slideEl => {
@@ -2107,13 +2106,21 @@
         const swiper = this;
         if (!swiper.params.simulateTouch || swiper.params.watchOverflow && swiper.isLocked || swiper.params.cssMode) return;
         const el = "container" === swiper.params.touchEventsTarget ? swiper.el : swiper.wrapperEl;
+        if (swiper.isElement) swiper.__preventObserver__ = true;
         el.style.cursor = "move";
         el.style.cursor = moving ? "grabbing" : "grab";
+        if (swiper.isElement) requestAnimationFrame((() => {
+            swiper.__preventObserver__ = false;
+        }));
     }
     function unsetGrabCursor() {
         const swiper = this;
         if (swiper.params.watchOverflow && swiper.isLocked || swiper.params.cssMode) return;
+        if (swiper.isElement) swiper.__preventObserver__ = true;
         swiper["container" === swiper.params.touchEventsTarget ? "el" : "wrapperEl"].style.cursor = "";
+        if (swiper.isElement) requestAnimationFrame((() => {
+            swiper.__preventObserver__ = false;
+        }));
     }
     const grab_cursor = {
         setGrabCursor,
@@ -2362,7 +2369,10 @@
         const data = swiper.touchEventsData;
         const pointerIndex = data.evCache.findIndex((cachedEv => cachedEv.pointerId === event.pointerId));
         if (pointerIndex >= 0) data.evCache.splice(pointerIndex, 1);
-        if ([ "pointercancel", "pointerout", "pointerleave" ].includes(event.type)) return;
+        if ([ "pointercancel", "pointerout", "pointerleave" ].includes(event.type)) {
+            const proceed = "pointercancel" === event.type && (swiper.browser.isSafari || swiper.browser.isWebView);
+            if (!proceed) return;
+        }
         const {params, touches, rtlTranslate: rtl, slidesGrid, enabled} = swiper;
         if (!enabled) return;
         if (!params.simulateTouch && "mouse" === event.pointerType) return;
@@ -2463,7 +2473,7 @@
         if (swiper.autoplay && swiper.autoplay.running && swiper.autoplay.paused) {
             clearTimeout(timeout);
             timeout = setTimeout((() => {
-                swiper.autoplay.resume();
+                if (swiper.autoplay && swiper.autoplay.running && swiper.autoplay.paused) swiper.autoplay.resume();
             }), 500);
         }
         swiper.allowSlidePrev = allowSlidePrev;
@@ -2943,6 +2953,15 @@
             if (swiper.params.init) swiper.init();
             return swiper;
         }
+        getSlideIndex(slideEl) {
+            const {slidesEl, params} = this;
+            const slides = utils_elementChildren(slidesEl, `.${params.slideClass}, swiper-slide`);
+            const firstSlideIndex = utils_elementIndex(slides[0]);
+            return utils_elementIndex(slideEl) - firstSlideIndex;
+        }
+        getSlideIndexByData(index) {
+            return this.getSlideIndex(this.slides.filter((slideEl => 1 * slideEl.getAttribute("data-swiper-slide-index") === index))[0]);
+        }
         recalcSlides() {
             const swiper = this;
             const {slidesEl, params} = swiper;
@@ -3366,6 +3385,41 @@
     }
     function initSliders() {
         if (document.querySelector(".swiper")) {
+            new core(".test__slider", {
+                modules: [ Navigation ],
+                observer: true,
+                watchOverflow: true,
+                observeParents: true,
+                slidesPerView: 3,
+                spaceBetween: 30,
+                parallax: true,
+                speed: 800,
+                navigation: {
+                    prevEl: ".swiper-button-prev",
+                    nextEl: ".swiper-button-next"
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 10
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    },
+                    992: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    },
+                    1330: {
+                        slidesPerView: 3,
+                        spaceBetween: 30
+                    }
+                },
+                on: {
+                    init: function(swiper) {}
+                }
+            });
             new core(".brick__slider", {
                 modules: [ Navigation ],
                 observer: true,
@@ -3448,7 +3502,6 @@
                 spaceBetween: 30,
                 speed: 800,
                 loop: true,
-                parallax: true,
                 navigation: {
                     prevEl: ".swiper-button-prev",
                     nextEl: ".swiper-button-next"
@@ -6640,9 +6693,9 @@
     if (graniteChecbox) graniteChecbox.addEventListener("change", handleGraniteChange);
     if (marbleChecbox) marbleChecbox.addEventListener("change", handleMarbleChange);
     function handleCategoryChange(event) {
-        showMore();
         const selectedCategory = event.target.value;
         cardElements.forEach((cardElement => {
+            showMore();
             availableCheckbox.checked = false;
             thredCheckbox.checked = false;
             graniteChecbox.checked = false;
@@ -6656,9 +6709,9 @@
         }));
     }
     function handleTypeChange(event) {
-        showMore();
         const selectedType = event.target.value;
         cardElements.forEach((cardElement => {
+            showMore();
             if (this.checked) {
                 label.classList.add("selected");
                 if (!cardElement.classList.contains("katalog__img-hiden")) if (cardElement.classList.contains(selectedType)) cardElement.classList.remove("katalog__img-hiden-available"); else cardElement.classList.add("katalog__img-hiden-available");
@@ -6671,6 +6724,7 @@
     function handleTypeDChange(event) {
         const selectedType = event.target.value;
         cardElements.forEach((cardElement => {
+            showMore();
             if (this.checked) {
                 label.classList.add("selected");
                 if (!cardElement.classList.contains("katalog__img-hiden")) if (cardElement.classList.contains(selectedType)) cardElement.classList.remove("katalog__img-hiden-3d"); else cardElement.classList.add("katalog__img-hiden-3d");
@@ -6683,6 +6737,7 @@
     function handleGraniteChange(event) {
         const selectedType = event.target.value;
         cardElements.forEach((cardElement => {
+            showMore();
             if (this.checked) {
                 label.classList.add("selected");
                 if (!cardElement.classList.contains("katalog__img-hiden")) if (cardElement.classList.contains(selectedType)) cardElement.classList.remove("katalog__img-hiden-granite"); else cardElement.classList.add("katalog__img-hiden-granite");
@@ -6695,6 +6750,7 @@
     function handleMarbleChange(event) {
         const selectedType = event.target.value;
         cardElements.forEach((cardElement => {
+            showMore();
             if (this.checked) {
                 label.classList.add("selected");
                 if (!cardElement.classList.contains("katalog__img-hiden")) if (cardElement.classList.contains(selectedType)) cardElement.classList.remove("katalog__img-hiden-marble"); else cardElement.classList.add("katalog__img-hiden-marble");
@@ -6717,6 +6773,7 @@
         filterCards();
     }));
     function filterCards() {
+        showMore();
         const minPrice = parseInt(slider1.value);
         const maxPrice = parseInt(slider2.value);
         cardElements.forEach((function(cardElements) {
@@ -6786,6 +6843,8 @@
     const backButtons = document.querySelectorAll(".calc__back-btn");
     const questionScreenEnd = document.querySelector(".calc__question-screen-end");
     let currentScreen = 0;
+    const script_form = document.querySelector(".informations__form-body");
+    const phoneNumberInput = document.getElementById("phone-number");
     function updateProgressBar() {
         const percent = (currentScreen + 1) / questionScreens.length * 100;
         progressBar.style.width = `${percent}%`;
@@ -6798,13 +6857,20 @@
     }
     nextButtons.forEach(((button, index) => {
         button.addEventListener("click", (() => {
-            if (currentScreen < questionScreens.length - 1) showScreen(currentScreen + 1); else {
-                questionScreens[currentScreen].classList.remove("active");
-                questionScreenEnd.classList.add("active");
-                progressBarBody.classList.add("hide");
-            }
+            if (currentScreen < questionScreens.length - 1) showScreen(currentScreen + 1); else script_formSubmit();
         }));
     }));
+    function script_formSubmit() {
+        const phoneNumber = phoneNumberInput.value;
+        script_form.addEventListener("submit", (event => {
+            event.preventDefault();
+        }));
+        if (phoneNumber) {
+            questionScreenEnd.classList.add("active");
+            progressBarBody.classList.add("hide");
+            questionScreens[currentScreen].classList.remove("active");
+        }
+    }
     backButtons.forEach(((button, index) => {
         button.addEventListener("click", (() => {
             if (currentScreen > 0) showScreen(currentScreen - 1);
