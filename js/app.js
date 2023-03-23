@@ -3385,40 +3385,22 @@
     }
     function initSliders() {
         if (document.querySelector(".swiper")) {
-            new core(".test__slider", {
+            new core(".goods__slider", {
                 modules: [ Navigation ],
                 observer: true,
-                watchOverflow: true,
                 observeParents: true,
-                slidesPerView: 3,
-                spaceBetween: 30,
-                parallax: true,
+                slidesPerView: 1,
+                lazy: true,
+                spaceBetween: 20,
+                loop: true,
                 speed: 800,
+                parallax: true,
                 navigation: {
                     prevEl: ".swiper-button-prev",
                     nextEl: ".swiper-button-next"
                 },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1,
-                        spaceBetween: 10
-                    },
-                    768: {
-                        slidesPerView: 2,
-                        spaceBetween: 20
-                    },
-                    992: {
-                        slidesPerView: 2,
-                        spaceBetween: 20
-                    },
-                    1330: {
-                        slidesPerView: 3,
-                        spaceBetween: 30
-                    }
-                },
-                on: {
-                    init: function(swiper) {}
-                }
+                breakpoints: {},
+                on: {}
             });
             new core(".brick__slider", {
                 modules: [ Navigation ],
@@ -3438,7 +3420,7 @@
                         slidesPerView: 1.1,
                         spaceBetween: 15
                     },
-                    400: {
+                    500: {
                         slidesPerView: 2,
                         spaceBetween: 10
                     },
@@ -3471,47 +3453,10 @@
                 },
                 breakpoints: {
                     320: {
-                        slidesPerView: 2,
-                        spaceBetween: 15
-                    },
-                    400: {
-                        slidesPerView: 2,
-                        spaceBetween: 10
-                    },
-                    768: {
-                        slidesPerView: 2,
-                        spaceBetween: 20
-                    },
-                    992: {
-                        slidesPerView: 2,
-                        spaceBetween: 30
-                    },
-                    1268: {
-                        slidesPerView: 3,
-                        spaceBetween: 20
-                    }
-                },
-                on: {}
-            });
-            new core(".thred__slider", {
-                modules: [ Navigation ],
-                observer: true,
-                observeParents: true,
-                slidesPerView: 2,
-                lazy: true,
-                spaceBetween: 30,
-                speed: 800,
-                loop: true,
-                navigation: {
-                    prevEl: ".swiper-button-prev",
-                    nextEl: ".swiper-button-next"
-                },
-                breakpoints: {
-                    320: {
                         slidesPerView: 1.1,
                         spaceBetween: 15
                     },
-                    400: {
+                    500: {
                         slidesPerView: 2,
                         spaceBetween: 10
                     },
@@ -3525,7 +3470,7 @@
                     },
                     1268: {
                         slidesPerView: 3,
-                        spaceBetween: 30
+                        spaceBetween: 20
                     }
                 },
                 on: {}
@@ -3588,7 +3533,6 @@
         }
         scrollWatcherConstructor(items) {
             if (items.length) {
-                this.scrollWatcherLogging(`Прокинувся, стежу за об'єктами (${items.length})...`);
                 let uniqParams = uniqArray(Array.from(items).map((function(item) {
                     return `${item.dataset.watchRoot ? item.dataset.watchRoot : null}|${item.dataset.watchMargin ? item.dataset.watchMargin : "0px"}|${item.dataset.watchThreshold ? item.dataset.watchThreshold : 0}`;
                 })));
@@ -3608,16 +3552,13 @@
                     let configWatcher = this.getScrollWatcherConfig(paramsWatch);
                     this.scrollWatcherInit(groupItems, configWatcher);
                 }));
-            } else this.scrollWatcherLogging("Сплю, немає об'єктів для стеження. ZzzZZzz");
+            }
         }
         getScrollWatcherConfig(paramsWatch) {
             let configWatcher = {};
-            if (document.querySelector(paramsWatch.root)) configWatcher.root = document.querySelector(paramsWatch.root); else if ("null" !== paramsWatch.root) this.scrollWatcherLogging(`Эмм... батьківського об'єкта ${paramsWatch.root} немає на сторінці`);
+            if (document.querySelector(paramsWatch.root)) configWatcher.root = document.querySelector(paramsWatch.root); else if ("null" !== paramsWatch.root) ;
             configWatcher.rootMargin = paramsWatch.margin;
-            if (paramsWatch.margin.indexOf("px") < 0 && paramsWatch.margin.indexOf("%") < 0) {
-                this.scrollWatcherLogging(`йой, налаштування data-watch-margin потрібно задавати в PX або %`);
-                return;
-            }
+            if (paramsWatch.margin.indexOf("px") < 0 && paramsWatch.margin.indexOf("%") < 0) return;
             if ("prx" === paramsWatch.threshold) {
                 paramsWatch.threshold = [];
                 for (let i = 0; i <= 1; i += .005) paramsWatch.threshold.push(i);
@@ -3637,17 +3578,10 @@
             items.forEach((item => this.observer.observe(item)));
         }
         scrollWatcherIntersecting(entry, targetElement) {
-            if (entry.isIntersecting) {
-                !targetElement.classList.contains("_watcher-view") ? targetElement.classList.add("_watcher-view") : null;
-                this.scrollWatcherLogging(`Я бачу ${targetElement.classList}, додав клас _watcher-view`);
-            } else {
-                targetElement.classList.contains("_watcher-view") ? targetElement.classList.remove("_watcher-view") : null;
-                this.scrollWatcherLogging(`Я не бачу ${targetElement.classList}, прибрав клас _watcher-view`);
-            }
+            if (entry.isIntersecting) !targetElement.classList.contains("_watcher-view") ? targetElement.classList.add("_watcher-view") : null; else targetElement.classList.contains("_watcher-view") ? targetElement.classList.remove("_watcher-view") : null;
         }
         scrollWatcherOff(targetElement, observer) {
             observer.unobserve(targetElement);
-            this.scrollWatcherLogging(`Я перестав стежити за ${targetElement.classList}`);
         }
         scrollWatcherLogging(message) {
             this.config.logging ? functions_FLS(`[Спостерігач]: ${message}`) : null;
@@ -6664,11 +6598,13 @@
     try {
         globalThis.IMask = IMask;
     } catch (e) {}
-    let script_element = document.getElementById("phone");
+    let phone = document.getElementById("phone");
+    let phoneCalc = document.getElementById("phone-number");
     let maskOptions = {
-        mask: "+{38}(000)000-00-00"
+        mask: "+{38} (000) 000-00-00"
     };
-    IMask(script_element, maskOptions);
+    IMask(phone, maskOptions);
+    IMask(phoneCalc, maskOptions);
     const singleButton = document.getElementById("option1");
     const doubleButton = document.getElementById("option2");
     const childButton = document.getElementById("option3");
@@ -6692,7 +6628,9 @@
     if (thredCheckbox) thredCheckbox.addEventListener("change", handleTypeDChange);
     if (graniteChecbox) graniteChecbox.addEventListener("change", handleGraniteChange);
     if (marbleChecbox) marbleChecbox.addEventListener("change", handleMarbleChange);
+    if (window.onload) showMore();
     function handleCategoryChange(event) {
+        showMore();
         const selectedCategory = event.target.value;
         cardElements.forEach((cardElement => {
             showMore();
@@ -6813,29 +6751,162 @@
     priseListFunc(priceList1);
     priseListFunc(priceList2);
     priseListFunc(priceList3);
-    function filterByPrice(priceCategory) {
-        const items = document.querySelectorAll(".thred__slide");
-        items.forEach((item => {
-            const price = parseInt(item.getAttribute("data-price"));
-            if ("20-30" === priceCategory && price >= 2e4 && price <= 3e4) item.style.display = "block"; else if ("30-50" === priceCategory && price >= 3e4 && price <= 5e4) item.style.display = "block"; else if ("50-80" === priceCategory && price >= 5e4 && price <= 8e4) item.style.display = "block"; else if ("80+" === priceCategory && price >= 8e4) item.style.display = "block"; else item.style.display = "none";
+    if (document.querySelector(".thred__slider")) {
+        const thredSwiper = new core(".thred__slider", {
+            modules: [ Navigation ],
+            observer: true,
+            observeParents: true,
+            slidesPerView: 3,
+            lazy: true,
+            spaceBetween: 30,
+            speed: 800,
+            loop: true,
+            navigation: {
+                prevEl: ".swiper-button-prev",
+                nextEl: ".swiper-button-next"
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 1.1,
+                    spaceBetween: 15
+                },
+                500: {
+                    slidesPerView: 2,
+                    spaceBetween: 10
+                },
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+                992: {
+                    slidesPerView: 2,
+                    spaceBetween: 30
+                },
+                1268: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                }
+            },
+            on: {}
+        });
+        const products = [ {
+            imageUrl: "../img/slider3D/3d1.jpg",
+            price: 25e3
+        }, {
+            imageUrl: "../img/slider3D/3d3.jpg",
+            price: 2e4
+        }, {
+            imageUrl: "../img/slider3D/3d2.jpg",
+            price: 35e3
+        }, {
+            imageUrl: "../img/slider3D/3d2.jpg",
+            price: 5e4
+        }, {
+            imageUrl: "../img/slider3D/3d2.jpg",
+            price: 75e3
+        }, {
+            imageUrl: "../img/slider3D/3d1.jpg",
+            price: 25e3
+        }, {
+            imageUrl: "../img/slider3D/3d1.jpg",
+            price: 35e3
+        }, {
+            imageUrl: "../img/slider3D/3d2.jpg",
+            price: 5e4
+        }, {
+            imageUrl: "../img/slider3D/3d2.jpg",
+            price: 75e3
+        }, {
+            imageUrl: "../img/slider3D/3d3.jpg",
+            price: 8e4
+        }, {
+            imageUrl: "../img/slider3D/3d1.jpg",
+            price: 25e3
+        }, {
+            imageUrl: "../img/slider3D/3d1.jpg",
+            price: 25e3
+        }, {
+            imageUrl: "../img/slider3D/3d2.jpg",
+            price: 35e3
+        }, {
+            imageUrl: "../img/slider3D/3d2.jpg",
+            price: 5e4
+        }, {
+            imageUrl: "../img/slider3D/3d2.jpg",
+            price: 5e4
+        }, {
+            imageUrl: "../img/slider3D/3d2.jpg",
+            price: 75e3
+        }, {
+            imageUrl: "../img/slider3D/3d1.jpg",
+            price: 25e3
+        }, {
+            imageUrl: "../img/slider3D/3d1.jpg",
+            price: 35e3
+        }, {
+            imageUrl: "../img/slider3D/3d2.jpg",
+            price: 5e4
+        }, {
+            imageUrl: "../img/slider3D/3d2.jpg",
+            price: 75e3
+        } ];
+        window.addEventListener("load", (function() {
+            createSlides(0, 1 / 0);
+        }));
+        function createSlides(minPrice, maxPrice) {
+            const slideContainer = document.querySelector(".thred__wrapper");
+            slideContainer.innerHTML = "";
+            const filteredProducts = products.filter((product => product.price >= minPrice && product.price <= maxPrice));
+            filteredProducts.forEach((product => {
+                const slide = document.createElement("div");
+                slide.classList.add("swiper-slide");
+                slide.classList.add("thred__slide");
+                const image = document.createElement("img");
+                image.src = product.imageUrl;
+                slide.appendChild(image);
+                const hover = document.createElement("p");
+                const button = document.createElement("a");
+                button.href = "goods.html";
+                button.classList.add("main-button");
+                const textNode = document.createTextNode("дивитися більше");
+                button.appendChild(textNode);
+                slide.appendChild(hover);
+                hover.appendChild(button);
+                slideContainer.appendChild(slide);
+            }));
+            thredSwiper.update();
+            thredSwiper.loopCreate();
+            thredSwiper.slideTo(1);
+        }
+        const button20to30 = document.querySelector("#btn-20-30");
+        if (button20to30) button20to30.addEventListener("click", (() => {
+            createSlides(2e4, 3e4);
+            thredSwiper.update();
+            thredSwiper.loopCreate();
+            thredSwiper.slideTo(1);
+        }));
+        const button30to50 = document.querySelector("#btn-30-50");
+        if (button30to50) button30to50.addEventListener("click", (() => {
+            createSlides(3e4, 5e4);
+            thredSwiper.update();
+            thredSwiper.loopCreate();
+            thredSwiper.slideTo(1);
+        }));
+        const button50to80 = document.querySelector("#btn-50-80");
+        if (button50to80) button50to80.addEventListener("click", (() => {
+            createSlides(5e4, 8e4);
+            thredSwiper.update();
+            thredSwiper.loopCreate();
+            thredSwiper.slideTo(1);
+        }));
+        const button80plus = document.querySelector("#btn-80-plus");
+        if (button80plus) button80plus.addEventListener("click", (() => {
+            createSlides(8e4, 1 / 0);
+            thredSwiper.update();
+            thredSwiper.loopCreate();
+            thredSwiper.slideTo(1);
         }));
     }
-    const button20to30 = document.querySelector("#btn-20-30");
-    if (button20to30) button20to30.addEventListener("click", (() => {
-        filterByPrice("20-30");
-    }));
-    const button30to50 = document.querySelector("#btn-30-50");
-    if (button30to50) button30to50.addEventListener("click", (() => {
-        filterByPrice("30-50");
-    }));
-    const button50to80 = document.querySelector("#btn-50-80");
-    if (button50to80) button50to80.addEventListener("click", (() => {
-        filterByPrice("50-80");
-    }));
-    const button80plus = document.querySelector("#btn-80-plus");
-    if (button80plus) button80plus.addEventListener("click", (() => {
-        filterByPrice("80+");
-    }));
     const progressBarBody = document.querySelector(".calc__progress-bar-body");
     const progressBar = document.querySelector(".calc__progress-bar");
     const questionScreens = document.querySelectorAll(".calc__question-screen");
