@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230324082342">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230325234023">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,10 +66,9 @@
 
 
 		<section class="aboutus">
-			<h1 data-watch class="aboutus__title newpaige-title">Про нас</h1>
-
 			<div class="aboutus__container">
-				<div class="aboutus__line"></div>
+				<div class="aboutus__line main-line"></div>
+				<h1 data-watch class="aboutus__title newpaige-title">Про нас</h1>
 				<div class="aboutus__body">
 					<div class="aboutus__top">
 						<div class="aboutus__text-body">
@@ -246,60 +245,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="seo">
-			<div class="seo__container">
-				<div data-watch class="seo__title main-title">Seo Text</div>
-				<div class="seo__body">
-					<div class="seo__text">
-						<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut mi sit amet purus euismod
-							ultricies nec id diam. Cras sed odio imperdiet, consectetur mi ut, pellentesque neque.
-							Praesent
-							faucibus eu nisi vitae eleifend. Morbi vestibulum enim nec bibendum luctus. Integer vitae ex
-							augue. Quisque nec velit eu sem lobortis dapibus nec ac eros. Praesent interdum gravida arcu
-							non
-							malesuada. Ut eget auctor est, eget fringilla eros. Nam dignissim sagittis neque in
-							tristique.
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-						<p>
-							Fusce volutpat mattis hendrerit. Integer pretium aliquet lacus sit amet feugiat. Mauris nec
-							vestibulum urna. Nullam quam magna, dictum in egestas vel, molestie at dui. Sed porta turpis
-							sed purus vehicula, vitae tempus risus bibendum. Maecenas a dolor nec magna aliquam
-							interdum. Nunc placerat gravida elit at dignissim. Nam cursus justo finibus, tristique ipsum
-							a, ultricies purus. Maecenas in lorem et sem porta finibus. Fusce in lectus eu nibh
-							venenatis rhoncus quis et magna. Pellentesque ex purus, ultrices a luctus a, posuere nec
-							nisl. Vivamus tempor nulla a mauris placerat rutrum. Ut dictum sapien at nisi commodo, nec
-							viverra lorem laoreet.
-						</p>
-						<p>
-							Nunc porta ante turpis, nec congue dolor porta facilisis. Vivamus tempus efficitur ipsum, ut
-							vestibulum nulla cursus eget. Nunc non leo condimentum, commodo enim gravida, varius nisi.
-							Mauris luctus laoreet lacinia. Curabitur magna leo, commodo vitae augue sit amet, lobortis
-							pellentesque odio. Nunc purus lectus, commodo eu metus ac, rutrum mattis urna. Curabitur
-							finibus erat pellentesque ante bibendum, non sagittis tellus finibus. Etiam cursus, purus
-							sed malesuada euismod, arcu odio tempus nunc, accumsan bibendum arcu tortor vel odio.
-							Pellentesque risus quam, convallis et mi ac, sodales imperdiet nulla. Duis non laoreet mi.
-							Cras id libero at risus euismod interdum. Aliquam posuere dolor sit amet ullamcorper
-							lacinia. Fusce scelerisque tempus commodo. Integer sit amet mollis ligula.
-						</p>
-						<p>Donec mi velit, posuere vitae magna nec, commodo laoreet magna. Phasellus eu ipsum ac nibh
-							interdum mattis. Maecenas et nisi ut purus consectetur pharetra eu ut velit. Suspendisse sit
-							amet felis et sem egestas tempor et sed metus. Morbi venenatis pellentesque risus, in
-							placerat ligula dictum vitae. Ut dictum sapien purus, eget fringilla metus egestas nec. Sed
-							lorem orci, malesuada id elit sit amet, vestibulum placerat purus. Pellentesque non sem eget
-							justo aliquet tincidunt. Vestibulum vel nisl et ipsum efficitur facilisis. Aliquam sed
-							pharetra tortor. Ut at mauris nisl. Phasellus tincidunt tortor vel mauris ultrices, sed
-							ornare turpis sodales. Ut lacus lectus, egestas luctus justo eleifend, gravida imperdiet
-							nunc. Aliquam auctor semper enim non ultrices. Quisque iaculis odio ac blandit malesuada.
-							Nulla tincidunt euismod sem at volutpat.</p>
-						<p>
-							Ut in dignissim tortor. Praesent efficitur porttitor suscipit. Duis nec dignissim augue.
-							Quisque convallis fringilla nibh, iaculis aliquam quam scelerisque dictum. Pellentesque
-							turpis et.
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
+
 		<footer class="footer">
 
 			<section class="menu-footer">
@@ -335,7 +281,7 @@
 				<div class="consultation__title">
 					Замовити<br> консультацію
 				</div>
-				<form class="consultation">
+				<form id="consultationForm" class="consultation">
 
 					<label class="consultation__label" for="name">Ім'я</label>
 					<input type="text" id="name" name="name">
@@ -560,7 +506,7 @@
 										Ні
 									</label>
 								</div>
-								<div class="delivery__hiden-body delivery__body-hiden">
+								<div class="delivery__hiden-body  ">
 									<h3 class="delivery__title">Доставка</h3>
 
 									<label class="delivery__sity">Місто або село: <input type="text" name="misto"></label>
@@ -569,12 +515,12 @@
 										<h3>Чи бажаєте, щоб ми встановили пам'ятник?</h3>
 										<div class="delivery__yesno-body">
 											<label>
-												<input type="radio" name="dostavka" value="tak">
+												<input type="radio" name="installation" value="yes">
 												<span class="delivery__radio-custom"></span>
 												Так
 											</label>
 											<label>
-												<input type="radio" name="dostavka" value="ni">
+												<input type="radio" name="installation" value="no">
 												<span class="delivery__radio-custom"></span>
 												Ні
 											</label>
@@ -627,7 +573,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="js/app.min.js?_v=20230324082342"></script>
+	<script src="js/app.min.js?_v=20230325234023"></script>
 </body>
 
 </html>

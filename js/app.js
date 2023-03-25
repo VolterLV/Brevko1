@@ -6603,8 +6603,12 @@
     let maskOptions = {
         mask: "+{38} (000) 000-00-00"
     };
-    IMask(phone, maskOptions);
-    IMask(phoneCalc, maskOptions);
+    if (phone) {
+        IMask(phone, maskOptions);
+    }
+    if (phoneCalc) {
+        IMask(phoneCalc, maskOptions);
+    }
     const singleButton = document.getElementById("option1");
     const doubleButton = document.getElementById("option2");
     const childButton = document.getElementById("option3");
@@ -6767,7 +6771,7 @@
             },
             breakpoints: {
                 320: {
-                    slidesPerView: 1.1,
+                    slidesPerView: 1,
                     spaceBetween: 15
                 },
                 500: {
@@ -6850,14 +6854,89 @@
             imageUrl: "img/slider3D/3d2.jpg",
             price: 75e3
         } ];
+        const productsTwo = [ {
+            imageUrl: "img/slider3D/3d2-1.jpg",
+            price: 25e3
+        }, {
+            imageUrl: "img/slider3D/3d2-1.jpg",
+            price: 2e4
+        }, {
+            imageUrl: "img/slider3D/3d2-1.jpg",
+            price: 35e3
+        }, {
+            imageUrl: "img/slider3D/3d2-2.jpg",
+            price: 5e4
+        }, {
+            imageUrl: "img/slider3D/3d2-3.jpg",
+            price: 75e3
+        }, {
+            imageUrl: "img/slider3D/3d2-1.jpg",
+            price: 25e3
+        }, {
+            imageUrl: "img/slider3D/3d2-1.jpg",
+            price: 35e3
+        }, {
+            imageUrl: "img/slider3D/3d2-2.jpg",
+            price: 5e4
+        }, {
+            imageUrl: "img/slider3D/3d2-3.jpg",
+            price: 75e3
+        }, {
+            imageUrl: "img/slider3D/3d2-4.jpg",
+            price: 8e4
+        }, {
+            imageUrl: "img/slider3D/3d2-5.jpg",
+            price: 8e4
+        }, {
+            imageUrl: "img/slider3D/3d2-1.jpg",
+            price: 25e3
+        }, {
+            imageUrl: "img/slider3D/3d2-1.jpg",
+            price: 25e3
+        }, {
+            imageUrl: "img/slider3D/3d2-1.jpg",
+            price: 35e3
+        }, {
+            imageUrl: "img/slider3D/3d2-2.jpg",
+            price: 5e4
+        }, {
+            imageUrl: "img/slider3D/3d2-3.jpg",
+            price: 5e4
+        }, {
+            imageUrl: "img/slider3D/3d2-4.jpg",
+            price: 75e3
+        }, {
+            imageUrl: "img/slider3D/3d2-1.jpg",
+            price: 25e3
+        }, {
+            imageUrl: "img/slider3D/3d2-1.jpg",
+            price: 35e3
+        }, {
+            imageUrl: "img/slider3D/3d2-3.jpg",
+            price: 5e4
+        }, {
+            imageUrl: "img/slider3D/3d2-4.jpg",
+            price: 75e3
+        } ];
+        const productsChild = [ {
+            imageUrl: "img/slider3D/3d3-1.jpg",
+            price: 25e3
+        }, {
+            imageUrl: "img/slider3D/3d3-2.jpg",
+            price: 35e3
+        }, {
+            imageUrl: "img/slider3D/3d3-3.jpg",
+            price: 55e3
+        }, {
+            imageUrl: "img/slider3D/3d3-4.jpg",
+            price: 85e3
+        } ];
         window.addEventListener("load", (function() {
-            createSlides(0, 1 / 0);
+            createSlidesOne(0, 1 / 0);
         }));
-        function createSlides(minPrice, maxPrice) {
-            const slideContainer = document.querySelector(".thred__wrapper");
-            slideContainer.innerHTML = "";
-            const filteredProducts = products.filter((product => product.price >= minPrice && product.price <= maxPrice));
-            filteredProducts.forEach((product => {
+        function createProducts(filterElement) {
+            let slideContainer = document.querySelector(".thred__wrapper");
+            filterElement.forEach((product => {
                 const slide = document.createElement("div");
                 slide.classList.add("swiper-slide");
                 slide.classList.add("thred__slide");
@@ -6874,90 +6953,175 @@
                 hover.appendChild(button);
                 slideContainer.appendChild(slide);
             }));
+        }
+        function createSlidesOne(minPrice, maxPrice) {
+            let slideContainer = document.querySelector(".thred__wrapper");
+            slideContainer.innerHTML = "";
+            const filteredProductsOne = products.filter((product => product.price >= minPrice && product.price <= maxPrice));
+            createProducts(filteredProductsOne);
+            thredSwiper.update();
+            thredSwiper.loopCreate();
+            thredSwiper.slideTo(1);
+        }
+        function createSlidesTwo(minPrice, maxPrice) {
+            let slideContainer = document.querySelector(".thred__wrapper");
+            slideContainer.innerHTML = "";
+            const filteredProductsTwo = productsTwo.filter((product => product.price >= minPrice && product.price <= maxPrice));
+            createProducts(filteredProductsTwo);
+            thredSwiper.update();
+            thredSwiper.loopCreate();
+            thredSwiper.slideTo(1);
+        }
+        function createSlidesChild(minPrice, maxPrice) {
+            let slideContainer = document.querySelector(".thred__wrapper");
+            slideContainer.innerHTML = "";
+            const filteredProductsChild = productsChild.filter((product => product.price >= minPrice && product.price <= maxPrice));
+            createProducts(filteredProductsChild);
             thredSwiper.update();
             thredSwiper.loopCreate();
             thredSwiper.slideTo(1);
         }
         const button20to30 = document.querySelector("#btn-20-30");
         if (button20to30) button20to30.addEventListener("click", (() => {
-            createSlides(2e4, 3e4);
+            createSlidesOne(2e4, 3e4);
             thredSwiper.update();
             thredSwiper.loopCreate();
             thredSwiper.slideTo(1);
         }));
         const button30to50 = document.querySelector("#btn-30-50");
         if (button30to50) button30to50.addEventListener("click", (() => {
-            createSlides(3e4, 5e4);
+            createSlidesOne(3e4, 5e4);
             thredSwiper.update();
             thredSwiper.loopCreate();
             thredSwiper.slideTo(1);
         }));
         const button50to80 = document.querySelector("#btn-50-80");
         if (button50to80) button50to80.addEventListener("click", (() => {
-            createSlides(5e4, 8e4);
+            createSlidesOne(5e4, 8e4);
             thredSwiper.update();
             thredSwiper.loopCreate();
             thredSwiper.slideTo(1);
         }));
         const button80plus = document.querySelector("#btn-80-plus");
         if (button80plus) button80plus.addEventListener("click", (() => {
-            createSlides(8e4, 1 / 0);
+            createSlidesOne(8e4, 1 / 0);
+            thredSwiper.update();
+            thredSwiper.loopCreate();
+            thredSwiper.slideTo(1);
+        }));
+        const buttonTwo20to30 = document.querySelector("#btnTwo-20-30");
+        if (buttonTwo20to30) buttonTwo20to30.addEventListener("click", (() => {
+            createSlidesTwo(2e4, 3e4);
+            thredSwiper.update();
+            thredSwiper.loopCreate();
+            thredSwiper.slideTo(1);
+        }));
+        const buttonTwo30to50 = document.querySelector("#btnTwo-30-50");
+        if (buttonTwo30to50) buttonTwo30to50.addEventListener("click", (() => {
+            createSlidesTwo(3e4, 5e4);
+            thredSwiper.update();
+            thredSwiper.loopCreate();
+            thredSwiper.slideTo(1);
+        }));
+        const buttonTwo50to80 = document.querySelector("#btnTwo-50-80");
+        if (buttonTwo50to80) buttonTwo50to80.addEventListener("click", (() => {
+            createSlidesTwo(5e4, 8e4);
+            thredSwiper.update();
+            thredSwiper.loopCreate();
+            thredSwiper.slideTo(1);
+        }));
+        const buttonTwo80plus = document.querySelector("#btnTwo-80-plus");
+        if (buttonTwo80plus) buttonTwo80plus.addEventListener("click", (() => {
+            createSlidesTwo(8e4, 1 / 0);
+            thredSwiper.update();
+            thredSwiper.loopCreate();
+            thredSwiper.slideTo(1);
+        }));
+        const buttonChild20to30 = document.querySelector("#btnChild-20-30");
+        if (buttonChild20to30) buttonChild20to30.addEventListener("click", (() => {
+            createSlidesChild(2e4, 3e4);
+            thredSwiper.update();
+            thredSwiper.loopCreate();
+            thredSwiper.slideTo(1);
+        }));
+        const buttonChild30to50 = document.querySelector("#btnChild-30-50");
+        if (buttonChild30to50) buttonChild30to50.addEventListener("click", (() => {
+            createSlidesChild(3e4, 5e4);
+            thredSwiper.update();
+            thredSwiper.loopCreate();
+            thredSwiper.slideTo(1);
+        }));
+        const buttonChild50to80 = document.querySelector("#btnChild-50-80");
+        if (buttonChild50to80) buttonChild50to80.addEventListener("click", (() => {
+            createSlidesChild(5e4, 8e4);
+            thredSwiper.update();
+            thredSwiper.loopCreate();
+            thredSwiper.slideTo(1);
+        }));
+        const buttonChild80plus = document.querySelector("#btnChild-80-plus");
+        if (buttonChild80plus) buttonChild80plus.addEventListener("click", (() => {
+            createSlidesChild(8e4, 1 / 0);
             thredSwiper.update();
             thredSwiper.loopCreate();
             thredSwiper.slideTo(1);
         }));
     }
-    const progressBarBody = document.querySelector(".calc__progress-bar-body");
+    document.querySelector(".calc__progress-bar-body");
     const progressBar = document.querySelector(".calc__progress-bar");
     const questionScreens = document.querySelectorAll(".calc__question-screen");
     const nextButtons = document.querySelectorAll(".calc__next-btn");
     const backButtons = document.querySelectorAll(".calc__back-btn");
-    const questionScreenEnd = document.querySelector(".calc__question-screen-end");
+    document.querySelector(".calc__question-screen-end");
     let currentScreen = 0;
     const script_form = document.querySelector(".informations__form-body");
     const phoneNumberInput = document.getElementById("phone-number");
-    function updateProgressBar() {
-        const percent = (currentScreen + 1) / questionScreens.length * 100;
-        progressBar.style.width = `${percent}%`;
-    }
-    function showScreen(index) {
-        questionScreens[currentScreen].classList.remove("active");
-        questionScreens[index].classList.add("active");
-        currentScreen = index;
-        updateProgressBar();
-    }
-    nextButtons.forEach(((button, index) => {
-        button.addEventListener("click", (() => {
-            if (currentScreen < questionScreens.length - 1) showScreen(currentScreen + 1); else script_formSubmit();
+    const popup = document.querySelector(".popup");
+    if (popup) {
+        function updateProgressBar() {
+            const percent = (currentScreen + 1) / questionScreens.length * 100;
+            progressBar.style.width = `${percent}%`;
+        }
+        function showScreen(index) {
+            questionScreens[currentScreen].classList.remove("active");
+            questionScreens[index].classList.add("active");
+            currentScreen = index;
+            updateProgressBar();
+        }
+        nextButtons.forEach(((button, index) => {
+            button.addEventListener("click", (() => {
+                if (currentScreen < questionScreens.length - 1) showScreen(currentScreen + 1); else script_formSubmit();
+            }));
         }));
-    }));
+        backButtons.forEach(((button, index) => {
+            button.addEventListener("click", (() => {
+                if (currentScreen > 0) showScreen(currentScreen - 1);
+            }));
+        }));
+        updateProgressBar();
+        showScreen(0);
+        const checkboxYes = document.getElementById("delivery-yes");
+        const checkboxNo = document.getElementById("delivery-no");
+        const hidenBody = document.querySelector(".delivery__hiden-body");
+        if (checkboxYes) checkboxYes.addEventListener("change", handleYesChange);
+        if (checkboxNo) checkboxNo.addEventListener("change", handleYesChange);
+        function handleYesChange(event) {
+            const checked = event.target.value;
+            if ("tak" === checked) hidenBody.classList.remove("delivery__body-hiden"); else hidenBody.classList.add("delivery__body-hiden");
+        }
+    }
     function script_formSubmit() {
         const phoneNumber = phoneNumberInput.value;
         script_form.addEventListener("submit", (event => {
             event.preventDefault();
+            window.location.href = "thank-calc.html";
         }));
-        if (phoneNumber) {
-            questionScreenEnd.classList.add("active");
-            progressBarBody.classList.add("hide");
-            questionScreens[currentScreen].classList.remove("active");
-        }
+        if (phoneNumber) ;
     }
-    backButtons.forEach(((button, index) => {
-        button.addEventListener("click", (() => {
-            if (currentScreen > 0) showScreen(currentScreen - 1);
-        }));
+    const consultationForm = document.querySelector("#consultationForm");
+    consultationForm.addEventListener("submit", (event => {
+        event.preventDefault();
+        window.location.href = "thank-poll.html";
     }));
-    updateProgressBar();
-    showScreen(0);
-    const checkboxYes = document.getElementById("delivery-yes");
-    const checkboxNo = document.getElementById("delivery-no");
-    const hidenBody = document.querySelector(".delivery__hiden-body");
-    if (checkboxYes) checkboxYes.addEventListener("change", handleYesChange);
-    if (checkboxNo) checkboxNo.addEventListener("change", handleYesChange);
-    function handleYesChange(event) {
-        const checked = event.target.value;
-        if ("ni" === checked) hidenBody.classList.remove("delivery__body-hiden"); else hidenBody.classList.add("delivery__body-hiden");
-    }
     window["FLS"] = true;
     menuInit();
     spollers();

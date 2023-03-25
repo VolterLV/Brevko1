@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230324082342">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230325234023">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,10 +66,9 @@
 
 
 		<section class="progect">
-			<h1 data-watch class="progect__title newpaige-title">Зд проект</h1>
-
 			<div class="progect__container">
-				<div class="progect__line"></div>
+				<div class="progect__line main-line"></div>
+				<h1 data-watch class="progect__title newpaige-title">Зд проект</h1>
 				<div class="progect__body">
 					<div class="progect__top">
 						<div class="progect__text-body">
@@ -271,7 +270,7 @@
 				<div class="consultation__title">
 					Замовити<br> консультацію
 				</div>
-				<form class="consultation">
+				<form id="consultationForm" class="consultation">
 
 					<label class="consultation__label" for="name">Ім'я</label>
 					<input type="text" id="name" name="name">
@@ -496,7 +495,7 @@
 										Ні
 									</label>
 								</div>
-								<div class="delivery__hiden-body delivery__body-hiden">
+								<div class="delivery__hiden-body  ">
 									<h3 class="delivery__title">Доставка</h3>
 
 									<label class="delivery__sity">Місто або село: <input type="text" name="misto"></label>
@@ -505,12 +504,12 @@
 										<h3>Чи бажаєте, щоб ми встановили пам'ятник?</h3>
 										<div class="delivery__yesno-body">
 											<label>
-												<input type="radio" name="dostavka" value="tak">
+												<input type="radio" name="installation" value="yes">
 												<span class="delivery__radio-custom"></span>
 												Так
 											</label>
 											<label>
-												<input type="radio" name="dostavka" value="ni">
+												<input type="radio" name="installation" value="no">
 												<span class="delivery__radio-custom"></span>
 												Ні
 											</label>
@@ -563,7 +562,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="js/app.min.js?_v=20230324082342"></script>
+	<script src="js/app.min.js?_v=20230325234023"></script>
 </body>
 
 </html>
