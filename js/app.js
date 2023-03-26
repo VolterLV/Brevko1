@@ -3392,7 +3392,6 @@
                 slidesPerView: 1,
                 lazy: true,
                 spaceBetween: 20,
-                loop: true,
                 speed: 800,
                 parallax: true,
                 navigation: {
@@ -3409,8 +3408,6 @@
                 slidesPerView: 2,
                 spaceBetween: 30,
                 speed: 800,
-                loop: true,
-                parallax: true,
                 navigation: {
                     prevEl: ".swiper-button-prev",
                     nextEl: ".swiper-button-next"
@@ -3446,7 +3443,6 @@
                 slidesPerView: 2,
                 spaceBetween: 30,
                 speed: 800,
-                loop: true,
                 navigation: {
                     prevEl: ".swiper-button-prev",
                     nextEl: ".swiper-button-next"
@@ -3470,7 +3466,8 @@
                     },
                     1268: {
                         slidesPerView: 3,
-                        spaceBetween: 20
+                        spaceBetween: 20,
+                        loopedSlides: 3
                     }
                 },
                 on: {}
@@ -3483,7 +3480,6 @@
                 lazy: true,
                 spaceBetween: 20,
                 autoHeight: true,
-                loop: true,
                 speed: 800,
                 parallax: true,
                 navigation: {
@@ -6598,6 +6594,144 @@
     try {
         globalThis.IMask = IMask;
     } catch (e) {}
+    const products = [ {
+        imageUrl: "img/slider3D/3d1.jpg",
+        price: 25e3
+    }, {
+        imageUrl: "img/slider3D/3d3.jpg",
+        price: 2e4
+    }, {
+        imageUrl: "img/slider3D/3d2.jpg",
+        price: 35e3
+    }, {
+        imageUrl: "img/slider3D/3d2.jpg",
+        price: 5e4
+    }, {
+        imageUrl: "img/slider3D/3d2.jpg",
+        price: 75e3
+    }, {
+        imageUrl: "img/slider3D/3d1.jpg",
+        price: 25e3
+    }, {
+        imageUrl: "img/slider3D/3d1.jpg",
+        price: 35e3
+    }, {
+        imageUrl: "img/slider3D/3d2.jpg",
+        price: 5e4
+    }, {
+        imageUrl: "img/slider3D/3d2.jpg",
+        price: 75e3
+    }, {
+        imageUrl: "img/slider3D/3d3.jpg",
+        price: 8e4
+    }, {
+        imageUrl: "img/slider3D/3d1.jpg",
+        price: 25e3
+    }, {
+        imageUrl: "img/slider3D/3d1.jpg",
+        price: 25e3
+    }, {
+        imageUrl: "img/slider3D/3d2.jpg",
+        price: 35e3
+    }, {
+        imageUrl: "img/slider3D/3d2.jpg",
+        price: 5e4
+    }, {
+        imageUrl: "img/slider3D/3d2.jpg",
+        price: 5e4
+    }, {
+        imageUrl: "img/slider3D/3d2.jpg",
+        price: 75e3
+    }, {
+        imageUrl: "img/slider3D/3d1.jpg",
+        price: 25e3
+    }, {
+        imageUrl: "img/slider3D/3d1.jpg",
+        price: 35e3
+    }, {
+        imageUrl: "img/slider3D/3d2.jpg",
+        price: 5e4
+    }, {
+        imageUrl: "img/slider3D/3d2.jpg",
+        price: 75e3
+    } ];
+    const productsTwo = [ {
+        imageUrl: "img/slider3D/3d2-1.jpg",
+        price: 25e3
+    }, {
+        imageUrl: "img/slider3D/3d2-1.jpg",
+        price: 2e4
+    }, {
+        imageUrl: "img/slider3D/3d2-1.jpg",
+        price: 35e3
+    }, {
+        imageUrl: "img/slider3D/3d2-2.jpg",
+        price: 5e4
+    }, {
+        imageUrl: "img/slider3D/3d2-3.jpg",
+        price: 75e3
+    }, {
+        imageUrl: "img/slider3D/3d2-1.jpg",
+        price: 25e3
+    }, {
+        imageUrl: "img/slider3D/3d2-1.jpg",
+        price: 35e3
+    }, {
+        imageUrl: "img/slider3D/3d2-2.jpg",
+        price: 5e4
+    }, {
+        imageUrl: "img/slider3D/3d2-3.jpg",
+        price: 75e3
+    }, {
+        imageUrl: "img/slider3D/3d2-4.jpg",
+        price: 8e4
+    }, {
+        imageUrl: "img/slider3D/3d2-5.jpg",
+        price: 8e4
+    }, {
+        imageUrl: "img/slider3D/3d2-1.jpg",
+        price: 25e3
+    }, {
+        imageUrl: "img/slider3D/3d2-1.jpg",
+        price: 25e3
+    }, {
+        imageUrl: "img/slider3D/3d2-1.jpg",
+        price: 35e3
+    }, {
+        imageUrl: "img/slider3D/3d2-2.jpg",
+        price: 5e4
+    }, {
+        imageUrl: "img/slider3D/3d2-3.jpg",
+        price: 5e4
+    }, {
+        imageUrl: "img/slider3D/3d2-4.jpg",
+        price: 75e3
+    }, {
+        imageUrl: "img/slider3D/3d2-1.jpg",
+        price: 25e3
+    }, {
+        imageUrl: "img/slider3D/3d2-1.jpg",
+        price: 35e3
+    }, {
+        imageUrl: "img/slider3D/3d2-3.jpg",
+        price: 5e4
+    }, {
+        imageUrl: "img/slider3D/3d2-4.jpg",
+        price: 75e3
+    } ];
+    const productsChild = [ {
+        imageUrl: "img/slider3D/3d3-1.jpg",
+        price: 25e3
+    }, {
+        imageUrl: "img/slider3D/3d3-2.jpg",
+        price: 35e3
+    }, {
+        imageUrl: "img/slider3D/3d3-3.jpg",
+        price: 55e3
+    }, {
+        imageUrl: "img/slider3D/3d3-4.jpg",
+        price: 85e3
+    } ];
     let phone = document.getElementById("phone");
     let phoneCalc = document.getElementById("phone-number");
     let maskOptions = {
@@ -6615,6 +6749,7 @@
     const eliteButton = document.getElementById("option4");
     const warriorButton = document.getElementById("option5");
     const accessoryButton = document.getElementById("option6");
+    const europButton = document.getElementById("option7");
     const cardElements = document.querySelectorAll(".katalog__img");
     const availableCheckbox = document.getElementById("available");
     const thredCheckbox = document.getElementById("thre-d");
@@ -6628,6 +6763,7 @@
     if (eliteButton) eliteButton.addEventListener("change", handleCategoryChange);
     if (warriorButton) warriorButton.addEventListener("change", handleCategoryChange);
     if (accessoryButton) accessoryButton.addEventListener("change", handleCategoryChange);
+    if (europButton) europButton.addEventListener("change", handleCategoryChange);
     if (availableCheckbox) availableCheckbox.addEventListener("change", handleTypeChange);
     if (thredCheckbox) thredCheckbox.addEventListener("change", handleTypeDChange);
     if (graniteChecbox) graniteChecbox.addEventListener("change", handleGraniteChange);
@@ -6706,6 +6842,14 @@
     const slider2 = document.querySelector(".slider2");
     const value1 = document.querySelector(".value1");
     const value2 = document.querySelector(".value2");
+    if (slider1) {
+        slider1.defaultValue;
+        value1.textContent;
+    }
+    if (slider2) {
+        slider2.defaultValue;
+        value2.textContent;
+    }
     if (slider1) slider1.addEventListener("input", (function() {
         value1.textContent = this.value + " UAH";
         filterCards();
@@ -6728,6 +6872,10 @@
         thredCheckbox.checked = false;
         graniteChecbox.checked = false;
         marbleChecbox.checked = false;
+        slider1.value = defaultSlider1Value;
+        slider2.value = defaultSlider2Value;
+        value1.textContent = defaultSliderValue1;
+        value2.textContent = defaultSliderValue2;
         cardElements.forEach((cardElement => {
             cardElement.classList.remove("katalog__img-hiden-price");
             cardElement.classList.remove("katalog__img-hiden-marble");
@@ -6764,7 +6912,6 @@
             lazy: true,
             spaceBetween: 30,
             speed: 800,
-            loop: true,
             navigation: {
                 prevEl: ".swiper-button-prev",
                 nextEl: ".swiper-button-next"
@@ -6793,144 +6940,6 @@
             },
             on: {}
         });
-        const products = [ {
-            imageUrl: "img/slider3D/3d1.jpg",
-            price: 25e3
-        }, {
-            imageUrl: "img/slider3D/3d3.jpg",
-            price: 2e4
-        }, {
-            imageUrl: "img/slider3D/3d2.jpg",
-            price: 35e3
-        }, {
-            imageUrl: "img/slider3D/3d2.jpg",
-            price: 5e4
-        }, {
-            imageUrl: "img/slider3D/3d2.jpg",
-            price: 75e3
-        }, {
-            imageUrl: "img/slider3D/3d1.jpg",
-            price: 25e3
-        }, {
-            imageUrl: "img/slider3D/3d1.jpg",
-            price: 35e3
-        }, {
-            imageUrl: "img/slider3D/3d2.jpg",
-            price: 5e4
-        }, {
-            imageUrl: "img/slider3D/3d2.jpg",
-            price: 75e3
-        }, {
-            imageUrl: "img/slider3D/3d3.jpg",
-            price: 8e4
-        }, {
-            imageUrl: "img/slider3D/3d1.jpg",
-            price: 25e3
-        }, {
-            imageUrl: "img/slider3D/3d1.jpg",
-            price: 25e3
-        }, {
-            imageUrl: "img/slider3D/3d2.jpg",
-            price: 35e3
-        }, {
-            imageUrl: "img/slider3D/3d2.jpg",
-            price: 5e4
-        }, {
-            imageUrl: "img/slider3D/3d2.jpg",
-            price: 5e4
-        }, {
-            imageUrl: "img/slider3D/3d2.jpg",
-            price: 75e3
-        }, {
-            imageUrl: "img/slider3D/3d1.jpg",
-            price: 25e3
-        }, {
-            imageUrl: "img/slider3D/3d1.jpg",
-            price: 35e3
-        }, {
-            imageUrl: "img/slider3D/3d2.jpg",
-            price: 5e4
-        }, {
-            imageUrl: "img/slider3D/3d2.jpg",
-            price: 75e3
-        } ];
-        const productsTwo = [ {
-            imageUrl: "img/slider3D/3d2-1.jpg",
-            price: 25e3
-        }, {
-            imageUrl: "img/slider3D/3d2-1.jpg",
-            price: 2e4
-        }, {
-            imageUrl: "img/slider3D/3d2-1.jpg",
-            price: 35e3
-        }, {
-            imageUrl: "img/slider3D/3d2-2.jpg",
-            price: 5e4
-        }, {
-            imageUrl: "img/slider3D/3d2-3.jpg",
-            price: 75e3
-        }, {
-            imageUrl: "img/slider3D/3d2-1.jpg",
-            price: 25e3
-        }, {
-            imageUrl: "img/slider3D/3d2-1.jpg",
-            price: 35e3
-        }, {
-            imageUrl: "img/slider3D/3d2-2.jpg",
-            price: 5e4
-        }, {
-            imageUrl: "img/slider3D/3d2-3.jpg",
-            price: 75e3
-        }, {
-            imageUrl: "img/slider3D/3d2-4.jpg",
-            price: 8e4
-        }, {
-            imageUrl: "img/slider3D/3d2-5.jpg",
-            price: 8e4
-        }, {
-            imageUrl: "img/slider3D/3d2-1.jpg",
-            price: 25e3
-        }, {
-            imageUrl: "img/slider3D/3d2-1.jpg",
-            price: 25e3
-        }, {
-            imageUrl: "img/slider3D/3d2-1.jpg",
-            price: 35e3
-        }, {
-            imageUrl: "img/slider3D/3d2-2.jpg",
-            price: 5e4
-        }, {
-            imageUrl: "img/slider3D/3d2-3.jpg",
-            price: 5e4
-        }, {
-            imageUrl: "img/slider3D/3d2-4.jpg",
-            price: 75e3
-        }, {
-            imageUrl: "img/slider3D/3d2-1.jpg",
-            price: 25e3
-        }, {
-            imageUrl: "img/slider3D/3d2-1.jpg",
-            price: 35e3
-        }, {
-            imageUrl: "img/slider3D/3d2-3.jpg",
-            price: 5e4
-        }, {
-            imageUrl: "img/slider3D/3d2-4.jpg",
-            price: 75e3
-        } ];
-        const productsChild = [ {
-            imageUrl: "img/slider3D/3d3-1.jpg",
-            price: 25e3
-        }, {
-            imageUrl: "img/slider3D/3d3-2.jpg",
-            price: 35e3
-        }, {
-            imageUrl: "img/slider3D/3d3-3.jpg",
-            price: 55e3
-        }, {
-            imageUrl: "img/slider3D/3d3-4.jpg",
-            price: 85e3
-        } ];
         window.addEventListener("load", (function() {
             createSlidesOne(0, 1 / 0);
         }));
@@ -7118,7 +7127,7 @@
         if (phoneNumber) ;
     }
     const consultationForm = document.querySelector("#consultationForm");
-    consultationForm.addEventListener("submit", (event => {
+    if (consultationForm) consultationForm.addEventListener("submit", (event => {
         event.preventDefault();
         window.location.href = "thank-poll.html";
     }));
