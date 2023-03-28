@@ -1,6 +1,6 @@
 (() => {
     "use strict";
-    const modules_flsModules = {};
+    const flsModules = {};
     function getHash() {
         if (location.hash) return location.hash.replace("#", "");
     }
@@ -303,7 +303,7 @@
             }
         }
     }
-    function functions_FLS(message) {
+    function FLS(message) {
         setTimeout((() => {
             if (window.FLS) console.log(message);
         }), 0);
@@ -593,11 +593,11 @@
             if (!this.isOpen && this.lastFocusEl) this.lastFocusEl.focus(); else focusable[0].focus();
         }
         popupLogging(message) {
-            this.options.logging ? functions_FLS(`[Попапос]: ${message}`) : null;
+            this.options.logging ? FLS(`[Попапос]: ${message}`) : null;
         }
     }
-    modules_flsModules.popup = new Popup({});
-    let gotoblock_gotoBlock = (targetBlock, noHeader = false, speed = 500, offsetTop = 0) => {
+    flsModules.popup = new Popup({});
+    let gotoBlock = (targetBlock, noHeader = false, speed = 500, offsetTop = 0) => {
         const targetBlockElement = document.querySelector(targetBlock);
         if (targetBlockElement) {
             let headerItem = "";
@@ -632,9 +632,140 @@
                     behavior: "smooth"
                 });
             }
-            functions_FLS(`[gotoBlock]: Юхуу...їдемо до ${targetBlock}`);
-        } else functions_FLS(`[gotoBlock]: Йой... Такого блоку немає на сторінці: ${targetBlock}`);
+            FLS(`[gotoBlock]: Юхуу...їдемо до ${targetBlock}`);
+        } else FLS(`[gotoBlock]: Йой... Такого блоку немає на сторінці: ${targetBlock}`);
     };
+    let formValidate = {
+        getErrors(form) {
+            let error = 0;
+            let formRequiredItems = form.querySelectorAll("*[data-required]");
+            if (formRequiredItems.length) formRequiredItems.forEach((formRequiredItem => {
+                if ((null !== formRequiredItem.offsetParent || "SELECT" === formRequiredItem.tagName) && !formRequiredItem.disabled) error += this.validateInput(formRequiredItem);
+            }));
+            return error;
+        },
+        validateInput(formRequiredItem) {
+            let error = 0;
+            if ("email" === formRequiredItem.dataset.required) {
+                formRequiredItem.value = formRequiredItem.value.replace(" ", "");
+                if (this.emailTest(formRequiredItem)) {
+                    this.addError(formRequiredItem);
+                    error++;
+                } else this.removeError(formRequiredItem);
+            } else if ("checkbox" === formRequiredItem.type && !formRequiredItem.checked) {
+                this.addError(formRequiredItem);
+                error++;
+            } else if (!formRequiredItem.value.trim()) {
+                this.addError(formRequiredItem);
+                error++;
+            } else this.removeError(formRequiredItem);
+            return error;
+        },
+        addError(formRequiredItem) {
+            formRequiredItem.classList.add("_form-error");
+            formRequiredItem.parentElement.classList.add("_form-error");
+            let inputError = formRequiredItem.parentElement.querySelector(".form__error");
+            if (inputError) formRequiredItem.parentElement.removeChild(inputError);
+            if (formRequiredItem.dataset.error) formRequiredItem.parentElement.insertAdjacentHTML("beforeend", `<div class="form__error">${formRequiredItem.dataset.error}</div>`);
+        },
+        removeError(formRequiredItem) {
+            formRequiredItem.classList.remove("_form-error");
+            formRequiredItem.parentElement.classList.remove("_form-error");
+            if (formRequiredItem.parentElement.querySelector(".form__error")) formRequiredItem.parentElement.removeChild(formRequiredItem.parentElement.querySelector(".form__error"));
+        },
+        formClean(form) {
+            form.reset();
+            setTimeout((() => {
+                let inputs = form.querySelectorAll("input,textarea");
+                for (let index = 0; index < inputs.length; index++) {
+                    const el = inputs[index];
+                    el.parentElement.classList.remove("_form-focus");
+                    el.classList.remove("_form-focus");
+                    formValidate.removeError(el);
+                }
+                let checkboxes = form.querySelectorAll(".checkbox__input");
+                if (checkboxes.length > 0) for (let index = 0; index < checkboxes.length; index++) {
+                    const checkbox = checkboxes[index];
+                    checkbox.checked = false;
+                }
+                if (flsModules.select) {
+                    let selects = form.querySelectorAll(".select");
+                    if (selects.length) for (let index = 0; index < selects.length; index++) {
+                        const select = selects[index].querySelector("select");
+                        flsModules.select.selectBuild(select);
+                    }
+                }
+            }), 0);
+        },
+        emailTest(formRequiredItem) {
+            return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
+        }
+    };
+    function formSubmit() {
+        const forms = document.forms;
+        if (forms.length) for (const form of forms) {
+            form.addEventListener("submit", (function(e) {
+                const form = e.target;
+                formSubmitAction(form, e);
+            }));
+            form.addEventListener("reset", (function(e) {
+                const form = e.target;
+                formValidate.formClean(form);
+            }));
+        }
+        async function formSubmitAction(form, e) {
+            const error = !form.hasAttribute("data-no-validate") ? formValidate.getErrors(form) : 0;
+            if (0 === error) {
+                const ajax = form.hasAttribute("data-ajax");
+                if (ajax) {
+                    e.preventDefault();
+                    form.getAttribute("action") && form.getAttribute("action").trim();
+                    const formMethod = form.getAttribute("method") ? form.getAttribute("method").trim() : "GET";
+                    const formData = new FormData(form);
+                    form.classList.add("_sending");
+                    const response = await fetch("formAction", {
+                        method: formMethod,
+                        body: formData
+                    });
+                    if (response.ok) {
+                        let responseResult = await response.json();
+                        form.classList.remove("_sending");
+                        formSent(form, responseResult);
+                    } else {
+                        alert("Помилка");
+                        form.classList.remove("_sending");
+                    }
+                } else if (form.hasAttribute("data-dev")) {
+                    e.preventDefault();
+                    formSent(form);
+                }
+            } else {
+                e.preventDefault();
+                if (form.querySelector("._form-error") && form.hasAttribute("data-goto-error")) {
+                    const formGoToErrorClass = form.dataset.gotoError ? form.dataset.gotoError : "._form-error";
+                    gotoBlock(formGoToErrorClass, true, 1e3);
+                }
+            }
+        }
+        function formSent(form, responseResult = ``) {
+            document.dispatchEvent(new CustomEvent("formSent", {
+                detail: {
+                    form
+                }
+            }));
+            setTimeout((() => {
+                if (flsModules.popup) {
+                    const popup = form.dataset.popupMessage;
+                    popup ? flsModules.popup.open(popup) : null;
+                }
+            }), 0);
+            formValidate.formClean(form);
+            formLogging(`Форму відправлено!`);
+        }
+        function formLogging(message) {
+            FLS(`[Форми]: ${message}`);
+        }
+    }
     function ssr_window_esm_isObject(obj) {
         return null !== obj && "object" === typeof obj && "constructor" in obj && obj.constructor === Object;
     }
@@ -3580,7 +3711,7 @@
             observer.unobserve(targetElement);
         }
         scrollWatcherLogging(message) {
-            this.config.logging ? functions_FLS(`[Спостерігач]: ${message}`) : null;
+            this.config.logging ? FLS(`[Спостерігач]: ${message}`) : null;
         }
         scrollWatcherCallback(entry, observer) {
             const targetElement = entry.target;
@@ -3593,7 +3724,7 @@
             }));
         }
     }
-    modules_flsModules.watcher = new ScrollWatcher({});
+    flsModules.watcher = new ScrollWatcher({});
     let addWindowScrollEvent = false;
     function pageNavigation() {
         document.addEventListener("click", pageNavigationAction);
@@ -3607,14 +3738,14 @@
                     const noHeader = gotoLink.hasAttribute("data-goto-header") ? true : false;
                     const gotoSpeed = gotoLink.dataset.gotoSpeed ? gotoLink.dataset.gotoSpeed : 500;
                     const offsetTop = gotoLink.dataset.gotoTop ? parseInt(gotoLink.dataset.gotoTop) : 0;
-                    if (modules_flsModules.fullpage) {
+                    if (flsModules.fullpage) {
                         const fullpageSection = document.querySelector(`${gotoLinkSelector}`).closest("[data-fp-section]");
                         const fullpageSectionId = fullpageSection ? +fullpageSection.dataset.fpId : null;
                         if (null !== fullpageSectionId) {
-                            modules_flsModules.fullpage.switchingSection(fullpageSectionId);
+                            flsModules.fullpage.switchingSection(fullpageSectionId);
                             document.documentElement.classList.contains("menu-open") ? menuClose() : null;
                         }
-                    } else gotoblock_gotoBlock(gotoLinkSelector, noHeader, gotoSpeed, offsetTop);
+                    } else gotoBlock(gotoLinkSelector, noHeader, gotoSpeed, offsetTop);
                     e.preventDefault();
                 }
             } else if ("watcherCallback" === e.type && e.detail) {
@@ -3637,7 +3768,7 @@
         if (getHash()) {
             let goToHash;
             if (document.querySelector(`#${getHash()}`)) goToHash = `#${getHash()}`; else if (document.querySelector(`.${getHash()}`)) goToHash = `.${getHash()}`;
-            goToHash ? gotoblock_gotoBlock(goToHash, true, 500, 20) : null;
+            goToHash ? gotoBlock(goToHash, true, 500, 20) : null;
         }
     }
     setTimeout((() => {
@@ -6594,144 +6725,6 @@
     try {
         globalThis.IMask = IMask;
     } catch (e) {}
-    const products = [ {
-        imageUrl: "img/slider3D/3d1.jpg",
-        price: 25e3
-    }, {
-        imageUrl: "img/slider3D/3d3.jpg",
-        price: 2e4
-    }, {
-        imageUrl: "img/slider3D/3d2.jpg",
-        price: 35e3
-    }, {
-        imageUrl: "img/slider3D/3d2.jpg",
-        price: 5e4
-    }, {
-        imageUrl: "img/slider3D/3d2.jpg",
-        price: 75e3
-    }, {
-        imageUrl: "img/slider3D/3d1.jpg",
-        price: 25e3
-    }, {
-        imageUrl: "img/slider3D/3d1.jpg",
-        price: 35e3
-    }, {
-        imageUrl: "img/slider3D/3d2.jpg",
-        price: 5e4
-    }, {
-        imageUrl: "img/slider3D/3d2.jpg",
-        price: 75e3
-    }, {
-        imageUrl: "img/slider3D/3d3.jpg",
-        price: 8e4
-    }, {
-        imageUrl: "img/slider3D/3d1.jpg",
-        price: 25e3
-    }, {
-        imageUrl: "img/slider3D/3d1.jpg",
-        price: 25e3
-    }, {
-        imageUrl: "img/slider3D/3d2.jpg",
-        price: 35e3
-    }, {
-        imageUrl: "img/slider3D/3d2.jpg",
-        price: 5e4
-    }, {
-        imageUrl: "img/slider3D/3d2.jpg",
-        price: 5e4
-    }, {
-        imageUrl: "img/slider3D/3d2.jpg",
-        price: 75e3
-    }, {
-        imageUrl: "img/slider3D/3d1.jpg",
-        price: 25e3
-    }, {
-        imageUrl: "img/slider3D/3d1.jpg",
-        price: 35e3
-    }, {
-        imageUrl: "img/slider3D/3d2.jpg",
-        price: 5e4
-    }, {
-        imageUrl: "img/slider3D/3d2.jpg",
-        price: 75e3
-    } ];
-    const productsTwo = [ {
-        imageUrl: "img/slider3D/3d2-1.jpg",
-        price: 25e3
-    }, {
-        imageUrl: "img/slider3D/3d2-1.jpg",
-        price: 2e4
-    }, {
-        imageUrl: "img/slider3D/3d2-1.jpg",
-        price: 35e3
-    }, {
-        imageUrl: "img/slider3D/3d2-2.jpg",
-        price: 5e4
-    }, {
-        imageUrl: "img/slider3D/3d2-3.jpg",
-        price: 75e3
-    }, {
-        imageUrl: "img/slider3D/3d2-1.jpg",
-        price: 25e3
-    }, {
-        imageUrl: "img/slider3D/3d2-1.jpg",
-        price: 35e3
-    }, {
-        imageUrl: "img/slider3D/3d2-2.jpg",
-        price: 5e4
-    }, {
-        imageUrl: "img/slider3D/3d2-3.jpg",
-        price: 75e3
-    }, {
-        imageUrl: "img/slider3D/3d2-4.jpg",
-        price: 8e4
-    }, {
-        imageUrl: "img/slider3D/3d2-5.jpg",
-        price: 8e4
-    }, {
-        imageUrl: "img/slider3D/3d2-1.jpg",
-        price: 25e3
-    }, {
-        imageUrl: "img/slider3D/3d2-1.jpg",
-        price: 25e3
-    }, {
-        imageUrl: "img/slider3D/3d2-1.jpg",
-        price: 35e3
-    }, {
-        imageUrl: "img/slider3D/3d2-2.jpg",
-        price: 5e4
-    }, {
-        imageUrl: "img/slider3D/3d2-3.jpg",
-        price: 5e4
-    }, {
-        imageUrl: "img/slider3D/3d2-4.jpg",
-        price: 75e3
-    }, {
-        imageUrl: "img/slider3D/3d2-1.jpg",
-        price: 25e3
-    }, {
-        imageUrl: "img/slider3D/3d2-1.jpg",
-        price: 35e3
-    }, {
-        imageUrl: "img/slider3D/3d2-3.jpg",
-        price: 5e4
-    }, {
-        imageUrl: "img/slider3D/3d2-4.jpg",
-        price: 75e3
-    } ];
-    const productsChild = [ {
-        imageUrl: "img/slider3D/3d3-1.jpg",
-        price: 25e3
-    }, {
-        imageUrl: "img/slider3D/3d3-2.jpg",
-        price: 35e3
-    }, {
-        imageUrl: "img/slider3D/3d3-3.jpg",
-        price: 55e3
-    }, {
-        imageUrl: "img/slider3D/3d3-4.jpg",
-        price: 85e3
-    } ];
     let phone = document.getElementById("phone");
     let phoneCalc = document.getElementById("phone-number");
     let maskOptions = {
@@ -6940,140 +6933,156 @@
             },
             on: {}
         });
-        window.addEventListener("load", (function() {
-            createSlidesOne(0, 1 / 0);
-        }));
-        function createProducts(filterElement) {
-            let slideContainer = document.querySelector(".thred__wrapper");
-            filterElement.forEach((product => {
-                const slide = document.createElement("div");
-                slide.classList.add("swiper-slide");
-                slide.classList.add("thred__slide");
-                const image = document.createElement("img");
-                image.src = product.imageUrl;
-                slide.appendChild(image);
-                const hover = document.createElement("p");
-                const button = document.createElement("a");
-                button.href = "goods.html";
-                button.classList.add("main-button");
-                const textNode = document.createTextNode("дивитися більше");
-                button.appendChild(textNode);
-                slide.appendChild(hover);
-                hover.appendChild(button);
-                slideContainer.appendChild(slide);
+        const slides = document.querySelectorAll(".thred__slide");
+        if (slides) {
+            const slides = document.querySelectorAll(".thred__slide");
+            const singleMonumentSlides = [];
+            const doubleMonumentSlides = [];
+            const childMonumentSlides = [];
+            slides.forEach((slide => {
+                const price = parseInt(slide.dataset.price);
+                const imageUrl = slide.querySelector("img").getAttribute("src");
+                const slideObj = {
+                    price,
+                    imageUrl
+                };
+                if (slide.classList.contains("single-monument")) singleMonumentSlides.push(slideObj); else if (slide.classList.contains("double-monument")) doubleMonumentSlides.push(slideObj); else if (slide.classList.contains("child-monument")) childMonumentSlides.push(slideObj);
+            }));
+            console.log(singleMonumentSlides);
+            console.log(doubleMonumentSlides);
+            console.log(childMonumentSlides);
+            function createProducts(filterElement) {
+                let slideContainer = document.querySelector(".thred__wrapper");
+                filterElement.forEach((product => {
+                    const slide = document.createElement("div");
+                    slide.classList.add("swiper-slide");
+                    slide.classList.add("thred__slide");
+                    const image = document.createElement("img");
+                    image.src = product.imageUrl;
+                    slide.appendChild(image);
+                    const hover = document.createElement("p");
+                    const button = document.createElement("a");
+                    button.href = "goods.html";
+                    button.classList.add("main-button");
+                    const textNode = document.createTextNode("дивитися більше");
+                    button.appendChild(textNode);
+                    slide.appendChild(hover);
+                    hover.appendChild(button);
+                    slideContainer.appendChild(slide);
+                }));
+            }
+            function createSlidesOne(minPrice, maxPrice) {
+                let slideContainer = document.querySelector(".thred__wrapper");
+                slideContainer.innerHTML = "";
+                const filteredProductsOne = singleMonumentSlides.filter((product => product.price >= minPrice && product.price <= maxPrice));
+                createProducts(filteredProductsOne);
+                thredSwiper.update();
+                thredSwiper.loopCreate();
+                thredSwiper.slideTo(0);
+            }
+            function createSlidesTwo(minPrice, maxPrice) {
+                let slideContainer = document.querySelector(".thred__wrapper");
+                slideContainer.innerHTML = "";
+                const filteredProductsTwo = doubleMonumentSlides.filter((product => product.price >= minPrice && product.price <= maxPrice));
+                createProducts(filteredProductsTwo);
+                thredSwiper.update();
+                thredSwiper.loopCreate();
+                thredSwiper.slideTo(0);
+            }
+            function createSlidesChild(minPrice, maxPrice) {
+                let slideContainer = document.querySelector(".thred__wrapper");
+                slideContainer.innerHTML = "";
+                const filteredProductsChild = childMonumentSlides.filter((product => product.price >= minPrice && product.price <= maxPrice));
+                createProducts(filteredProductsChild);
+                thredSwiper.update();
+                thredSwiper.loopCreate();
+                thredSwiper.slideTo(0);
+            }
+            const button20to30 = document.querySelector("#btn-20-30");
+            if (button20to30) button20to30.addEventListener("click", (() => {
+                createSlidesOne(2e4, 3e4);
+                thredSwiper.update();
+                thredSwiper.loopCreate();
+                thredSwiper.slideTo(0);
+            }));
+            const button30to50 = document.querySelector("#btn-30-50");
+            if (button30to50) button30to50.addEventListener("click", (() => {
+                createSlidesOne(3e4, 5e4);
+                thredSwiper.update();
+                thredSwiper.loopCreate();
+                thredSwiper.slideTo(0);
+            }));
+            const button50to80 = document.querySelector("#btn-50-80");
+            if (button50to80) button50to80.addEventListener("click", (() => {
+                createSlidesOne(5e4, 8e4);
+                thredSwiper.update();
+                thredSwiper.loopCreate();
+                thredSwiper.slideTo(0);
+            }));
+            const button80plus = document.querySelector("#btn-80-plus");
+            if (button80plus) button80plus.addEventListener("click", (() => {
+                createSlidesOne(8e4, 1 / 0);
+                thredSwiper.update();
+                thredSwiper.loopCreate();
+                thredSwiper.slideTo(0);
+            }));
+            const buttonTwo20to30 = document.querySelector("#btnTwo-20-30");
+            if (buttonTwo20to30) buttonTwo20to30.addEventListener("click", (() => {
+                createSlidesTwo(2e4, 3e4);
+                thredSwiper.update();
+                thredSwiper.loopCreate();
+                thredSwiper.slideTo(0);
+            }));
+            const buttonTwo30to50 = document.querySelector("#btnTwo-30-50");
+            if (buttonTwo30to50) buttonTwo30to50.addEventListener("click", (() => {
+                createSlidesTwo(3e4, 5e4);
+                thredSwiper.update();
+                thredSwiper.loopCreate();
+                thredSwiper.slideTo(0);
+            }));
+            const buttonTwo50to80 = document.querySelector("#btnTwo-50-80");
+            if (buttonTwo50to80) buttonTwo50to80.addEventListener("click", (() => {
+                createSlidesTwo(5e4, 8e4);
+                thredSwiper.update();
+                thredSwiper.loopCreate();
+                thredSwiper.slideTo(0);
+            }));
+            const buttonTwo80plus = document.querySelector("#btnTwo-80-plus");
+            if (buttonTwo80plus) buttonTwo80plus.addEventListener("click", (() => {
+                createSlidesTwo(8e4, 1 / 0);
+                thredSwiper.update();
+                thredSwiper.loopCreate();
+                thredSwiper.slideTo(0);
+            }));
+            const buttonChild20to30 = document.querySelector("#btnChild-20-30");
+            if (buttonChild20to30) buttonChild20to30.addEventListener("click", (() => {
+                createSlidesChild(2e4, 3e4);
+                thredSwiper.update();
+                thredSwiper.loopCreate();
+                thredSwiper.slideTo(0);
+            }));
+            const buttonChild30to50 = document.querySelector("#btnChild-30-50");
+            if (buttonChild30to50) buttonChild30to50.addEventListener("click", (() => {
+                createSlidesChild(3e4, 5e4);
+                thredSwiper.update();
+                thredSwiper.loopCreate();
+                thredSwiper.slideTo(0);
+            }));
+            const buttonChild50to80 = document.querySelector("#btnChild-50-80");
+            if (buttonChild50to80) buttonChild50to80.addEventListener("click", (() => {
+                createSlidesChild(5e4, 8e4);
+                thredSwiper.update();
+                thredSwiper.loopCreate();
+                thredSwiper.slideTo(0);
+            }));
+            const buttonChild80plus = document.querySelector("#btnChild-80-plus");
+            if (buttonChild80plus) buttonChild80plus.addEventListener("click", (() => {
+                createSlidesChild(8e4, 1 / 0);
+                thredSwiper.update();
+                thredSwiper.loopCreate();
+                thredSwiper.slideTo(0);
             }));
         }
-        function createSlidesOne(minPrice, maxPrice) {
-            let slideContainer = document.querySelector(".thred__wrapper");
-            slideContainer.innerHTML = "";
-            const filteredProductsOne = products.filter((product => product.price >= minPrice && product.price <= maxPrice));
-            createProducts(filteredProductsOne);
-            thredSwiper.update();
-            thredSwiper.loopCreate();
-            thredSwiper.slideTo(1);
-        }
-        function createSlidesTwo(minPrice, maxPrice) {
-            let slideContainer = document.querySelector(".thred__wrapper");
-            slideContainer.innerHTML = "";
-            const filteredProductsTwo = productsTwo.filter((product => product.price >= minPrice && product.price <= maxPrice));
-            createProducts(filteredProductsTwo);
-            thredSwiper.update();
-            thredSwiper.loopCreate();
-            thredSwiper.slideTo(1);
-        }
-        function createSlidesChild(minPrice, maxPrice) {
-            let slideContainer = document.querySelector(".thred__wrapper");
-            slideContainer.innerHTML = "";
-            const filteredProductsChild = productsChild.filter((product => product.price >= minPrice && product.price <= maxPrice));
-            createProducts(filteredProductsChild);
-            thredSwiper.update();
-            thredSwiper.loopCreate();
-            thredSwiper.slideTo(1);
-        }
-        const button20to30 = document.querySelector("#btn-20-30");
-        if (button20to30) button20to30.addEventListener("click", (() => {
-            createSlidesOne(2e4, 3e4);
-            thredSwiper.update();
-            thredSwiper.loopCreate();
-            thredSwiper.slideTo(1);
-        }));
-        const button30to50 = document.querySelector("#btn-30-50");
-        if (button30to50) button30to50.addEventListener("click", (() => {
-            createSlidesOne(3e4, 5e4);
-            thredSwiper.update();
-            thredSwiper.loopCreate();
-            thredSwiper.slideTo(1);
-        }));
-        const button50to80 = document.querySelector("#btn-50-80");
-        if (button50to80) button50to80.addEventListener("click", (() => {
-            createSlidesOne(5e4, 8e4);
-            thredSwiper.update();
-            thredSwiper.loopCreate();
-            thredSwiper.slideTo(1);
-        }));
-        const button80plus = document.querySelector("#btn-80-plus");
-        if (button80plus) button80plus.addEventListener("click", (() => {
-            createSlidesOne(8e4, 1 / 0);
-            thredSwiper.update();
-            thredSwiper.loopCreate();
-            thredSwiper.slideTo(1);
-        }));
-        const buttonTwo20to30 = document.querySelector("#btnTwo-20-30");
-        if (buttonTwo20to30) buttonTwo20to30.addEventListener("click", (() => {
-            createSlidesTwo(2e4, 3e4);
-            thredSwiper.update();
-            thredSwiper.loopCreate();
-            thredSwiper.slideTo(1);
-        }));
-        const buttonTwo30to50 = document.querySelector("#btnTwo-30-50");
-        if (buttonTwo30to50) buttonTwo30to50.addEventListener("click", (() => {
-            createSlidesTwo(3e4, 5e4);
-            thredSwiper.update();
-            thredSwiper.loopCreate();
-            thredSwiper.slideTo(1);
-        }));
-        const buttonTwo50to80 = document.querySelector("#btnTwo-50-80");
-        if (buttonTwo50to80) buttonTwo50to80.addEventListener("click", (() => {
-            createSlidesTwo(5e4, 8e4);
-            thredSwiper.update();
-            thredSwiper.loopCreate();
-            thredSwiper.slideTo(1);
-        }));
-        const buttonTwo80plus = document.querySelector("#btnTwo-80-plus");
-        if (buttonTwo80plus) buttonTwo80plus.addEventListener("click", (() => {
-            createSlidesTwo(8e4, 1 / 0);
-            thredSwiper.update();
-            thredSwiper.loopCreate();
-            thredSwiper.slideTo(1);
-        }));
-        const buttonChild20to30 = document.querySelector("#btnChild-20-30");
-        if (buttonChild20to30) buttonChild20to30.addEventListener("click", (() => {
-            createSlidesChild(2e4, 3e4);
-            thredSwiper.update();
-            thredSwiper.loopCreate();
-            thredSwiper.slideTo(1);
-        }));
-        const buttonChild30to50 = document.querySelector("#btnChild-30-50");
-        if (buttonChild30to50) buttonChild30to50.addEventListener("click", (() => {
-            createSlidesChild(3e4, 5e4);
-            thredSwiper.update();
-            thredSwiper.loopCreate();
-            thredSwiper.slideTo(1);
-        }));
-        const buttonChild50to80 = document.querySelector("#btnChild-50-80");
-        if (buttonChild50to80) buttonChild50to80.addEventListener("click", (() => {
-            createSlidesChild(5e4, 8e4);
-            thredSwiper.update();
-            thredSwiper.loopCreate();
-            thredSwiper.slideTo(1);
-        }));
-        const buttonChild80plus = document.querySelector("#btnChild-80-plus");
-        if (buttonChild80plus) buttonChild80plus.addEventListener("click", (() => {
-            createSlidesChild(8e4, 1 / 0);
-            thredSwiper.update();
-            thredSwiper.loopCreate();
-            thredSwiper.slideTo(1);
-        }));
     }
     document.querySelector(".calc__progress-bar-body");
     const progressBar = document.querySelector(".calc__progress-bar");
@@ -7082,8 +7091,8 @@
     const backButtons = document.querySelectorAll(".calc__back-btn");
     document.querySelector(".calc__question-screen-end");
     let currentScreen = 0;
-    const script_form = document.querySelector(".informations__form-body");
-    const phoneNumberInput = document.getElementById("phone-number");
+    document.querySelector(".informations__form-body");
+    document.getElementById("phone-number");
     const popup = document.querySelector(".popup");
     if (popup) {
         function updateProgressBar() {
@@ -7098,7 +7107,7 @@
         }
         nextButtons.forEach(((button, index) => {
             button.addEventListener("click", (() => {
-                if (currentScreen < questionScreens.length - 1) showScreen(currentScreen + 1); else script_formSubmit();
+                if (currentScreen < questionScreens.length - 1) showScreen(currentScreen + 1);
             }));
         }));
         backButtons.forEach(((button, index) => {
@@ -7118,22 +7127,10 @@
             if ("tak" === checked) hidenBody.classList.remove("delivery__body-hiden"); else hidenBody.classList.add("delivery__body-hiden");
         }
     }
-    function script_formSubmit() {
-        const phoneNumber = phoneNumberInput.value;
-        script_form.addEventListener("submit", (event => {
-            event.preventDefault();
-            window.location.href = "thank-calc.html";
-        }));
-        if (phoneNumber) ;
-    }
-    const consultationForm = document.querySelector("#consultationForm");
-    if (consultationForm) consultationForm.addEventListener("submit", (event => {
-        event.preventDefault();
-        window.location.href = "thank-poll.html";
-    }));
     window["FLS"] = true;
     menuInit();
     spollers();
     showMore();
+    formSubmit();
     pageNavigation();
 })();

@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230327165532">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230328114632">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -427,7 +427,7 @@
 				<div class="consultation__title">
 					Замовити<br> консультацію
 				</div>
-				<form id="consultationForm" class="consultation">
+				<form id="consultationForm" action="sendmail.php" method="post" class="consultation">
 
 					<label class="consultation__label" for="name">Ім'я</label>
 					<input type="text" id="name" name="name">
@@ -440,7 +440,7 @@
 					<label class="consultation__label" for="location">Ваше місцезнаходження</label>
 					<input type="text" id="location" name="location" placeholder="м. Івано-Франківськ">
 					<div class="consultation__line"></div>
-					<button class="consultation__button main-buttoncolor">Замовити консультацію</button>
+					<button type="submit" class="consultation__button main-buttoncolor">Замовити консультацію</button>
 				</form>
 
 			</div>
@@ -719,7 +719,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="js/app.min.js?_v=20230327165532"></script>
+	<script src="js/app.min.js?_v=20230328114632"></script>
 </body>
 
 </html>
