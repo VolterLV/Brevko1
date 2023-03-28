@@ -7091,8 +7091,8 @@
     const backButtons = document.querySelectorAll(".calc__back-btn");
     document.querySelector(".calc__question-screen-end");
     let currentScreen = 0;
-    document.querySelector(".informations__form-body");
-    document.getElementById("phone-number");
+    const script_form = document.querySelector(".informations__form-body");
+    const phoneNumberInput = document.getElementById("phone-number");
     const popup = document.querySelector(".popup");
     if (popup) {
         function updateProgressBar() {
@@ -7107,7 +7107,7 @@
         }
         nextButtons.forEach(((button, index) => {
             button.addEventListener("click", (() => {
-                if (currentScreen < questionScreens.length - 1) showScreen(currentScreen + 1);
+                if (currentScreen < questionScreens.length - 1) showScreen(currentScreen + 1); else script_formSubmit();
             }));
         }));
         backButtons.forEach(((button, index) => {
@@ -7126,6 +7126,14 @@
             const checked = event.target.value;
             if ("tak" === checked) hidenBody.classList.remove("delivery__body-hiden"); else hidenBody.classList.add("delivery__body-hiden");
         }
+    }
+    function script_formSubmit() {
+        const phoneNumber = phoneNumberInput.value;
+        script_form.addEventListener("submit", (event => {
+            event.preventDefault();
+            window.location.href = "thank-calc.html";
+        }));
+        if (phoneNumber) ;
     }
     window["FLS"] = true;
     menuInit();
