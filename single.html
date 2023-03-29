@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230328133723">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230329204842">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -428,7 +428,7 @@
 					Замовити<br> консультацію
 				</div>
 
-				<form id="consultationForm" action="/files/sendmail/sendmail.php" method="POST" class="consultation">
+				<form id="consultationForm" onsubmit="window.location.href = 'thank-calc.html'" action="/files/sendmail/sendmail.php" method="POST" class="consultation">
 
 					<label class="consultation__label" for="name">Ім'я</label>
 					<input type="text" id="name" name="name">
@@ -447,6 +447,7 @@
 			</div>
 		</div>
 	</div>
+
 	<div id="popup-typebrick" aria-hidden="true" class="popup">
 		<div class="popup__wrapper">
 			<div class="popup__content typebrick__content">
@@ -492,7 +493,7 @@
 	<div id="popup-calc" aria-hidden="true" class="popup">
 		<div class="popup__wrapper">
 			<div class="popup__content calc__content">
-				<form class="calc__container">
+				<form onsubmit="window.location.href = 'thank-calc.html'" class="calc__container" action="/files/sendmail/sendmail.php" method="POST">
 					<div class="calc__progress-bar-body">
 						<div class="calc__progress-bar"> </div>
 					</div>
@@ -540,7 +541,7 @@
 							</label>
 							<label class="calc__image-radio  calc__image-first">
 
-								<input type="radio" name="monument" value="children">
+								<input type="radio" name="monument" value="combined">
 								<div class="calc__image-hover">
 									<picture><source srcset="img/calc-popup/calc6.webp" type="image/webp"><img src="img/calc-popup/calc6.png" alt=""></picture>
 									<span>Комбінований крихта-граніт</span>
@@ -703,7 +704,7 @@
 							</div>
 							<div class="calc__btn-body">
 								<button class="calc__back-btn">Назад</button>
-								<button class="calc__next-btn">Надіслати</button>
+								<button type="submit" class="calc__next-btn">Надіслати</button>
 							</div>
 						</div>
 					</div>
@@ -720,7 +721,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="js/app.min.js?_v=20230328133723"></script>
+	<script src="js/app.min.js?_v=20230329204842"></script>
 </body>
 
 </html>

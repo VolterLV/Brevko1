@@ -761,6 +761,7 @@
             }), 0);
             formValidate.formClean(form);
             formLogging(`Форму відправлено!`);
+            window.location.href = "thank-calc.html";
         }
         function formLogging(message) {
             FLS(`[Форми]: ${message}`);
@@ -6831,6 +6832,26 @@
             }
         }));
     }
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get("category");
+    if ("single" === category) {
+        singleButton.checked = true;
+        handleCategoryChange({
+            target: singleButton
+        });
+    }
+    if ("double" === category) {
+        doubleButton.checked = true;
+        handleCategoryChange({
+            target: doubleButton
+        });
+    }
+    if ("child" === category) {
+        childButton.checked = true;
+        handleCategoryChange({
+            target: childButton
+        });
+    }
     const slider1 = document.querySelector(".slider1");
     const slider2 = document.querySelector(".slider2");
     const value1 = document.querySelector(".value1");
@@ -6948,9 +6969,6 @@
                 };
                 if (slide.classList.contains("single-monument")) singleMonumentSlides.push(slideObj); else if (slide.classList.contains("double-monument")) doubleMonumentSlides.push(slideObj); else if (slide.classList.contains("child-monument")) childMonumentSlides.push(slideObj);
             }));
-            console.log(singleMonumentSlides);
-            console.log(doubleMonumentSlides);
-            console.log(childMonumentSlides);
             function createProducts(filterElement) {
                 let slideContainer = document.querySelector(".thred__wrapper");
                 filterElement.forEach((product => {
@@ -7091,8 +7109,8 @@
     const backButtons = document.querySelectorAll(".calc__back-btn");
     document.querySelector(".calc__question-screen-end");
     let currentScreen = 0;
-    const script_form = document.querySelector(".informations__form-body");
-    const phoneNumberInput = document.getElementById("phone-number");
+    document.querySelector(".informations__form-body");
+    document.getElementById("phone-number");
     const popup = document.querySelector(".popup");
     if (popup) {
         function updateProgressBar() {
@@ -7107,7 +7125,7 @@
         }
         nextButtons.forEach(((button, index) => {
             button.addEventListener("click", (() => {
-                if (currentScreen < questionScreens.length - 1) showScreen(currentScreen + 1); else script_formSubmit();
+                if (currentScreen < questionScreens.length - 1) showScreen(currentScreen + 1);
             }));
         }));
         backButtons.forEach(((button, index) => {
@@ -7126,14 +7144,6 @@
             const checked = event.target.value;
             if ("tak" === checked) hidenBody.classList.remove("delivery__body-hiden"); else hidenBody.classList.add("delivery__body-hiden");
         }
-    }
-    function script_formSubmit() {
-        const phoneNumber = phoneNumberInput.value;
-        script_form.addEventListener("submit", (event => {
-            event.preventDefault();
-            window.location.href = "thank-calc.html";
-        }));
-        if (phoneNumber) ;
     }
     window["FLS"] = true;
     menuInit();
