@@ -6852,6 +6852,30 @@
             target: childButton
         });
     }
+    if ("elite" === category) {
+        childButton.checked = true;
+        handleCategoryChange({
+            target: eliteButton
+        });
+    }
+    if ("warriors" === category) {
+        childButton.checked = true;
+        handleCategoryChange({
+            target: warriorsButton
+        });
+    }
+    if ("accessory" === category) {
+        childButton.checked = true;
+        handleCategoryChange({
+            target: accessoryButton
+        });
+    }
+    if ("europ" === category) {
+        childButton.checked = true;
+        handleCategoryChange({
+            target: europButton
+        });
+    }
     const slider1 = document.querySelector(".slider1");
     const slider2 = document.querySelector(".slider2");
     const value1 = document.querySelector(".value1");
